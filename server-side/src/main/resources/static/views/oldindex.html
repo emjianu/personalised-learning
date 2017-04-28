@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+
+    <title>Hello AngularJS</title>
+    <link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+          rel="stylesheet" media="screen">
+    </link>
+
+    <link
+            href="/webjars/bootstrap-material-design/0.5.9/css/bootstrap-material-design.min.css"
+            rel="stylesheet" media="screen">
+    </link>
+
+    <link
+            href="/webjars/bootstrap-material-design/0.5.9/css/ripples.min.css"
+            rel="stylesheet" media="screen">
+    </link>
+    <style type="text/css">
+        [ng\:cloak], [ng-cloak], .ng-cloak {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<!--<body ng-app="hello">-->
+<div class="container">
+    <h1>Welcome</h1>
+   <!-- <div ng-controller="home" ng-cloak class="ng-cloak">-->
+        <p>Take an initial test?</p>
+
+     <!--   <button class="btn btn-success btn-raised" ng-click="/second">{{btnText}}</button>-->
+
+
+        <a class="btn btn-success btn-raised" href="#/second">{{btnText}}</a>
+
+        <a class="btn btn-success btn-raised" href="#/lesson_1">{{startBtnText}}</a>
+    </div>
+
+
+    <div ng-view></div>
+</div>
+
+<script src="/webjars/angularjs/1.4.9/angular.js"></script>
+<script src="/webjars/angularjs/1.4.9/angular-resource.js"></script>
+<script src="/webjars/angularjs/1.4.9/angular-route.js"></script>
+<script src="js/angular-bootstrap.js" type="text/javascript"></script>
+
+
+<script src="/webjars/jquery/2.1.4/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script
+        src="/webjars/bootstrap-material-design/0.5.9/js/material.min.js"></script>
+<script
+        src="/webjars/bootstrap-material-design/0.5.9/js/ripples.min.js"></script>
+
+
+<script src="../js/initMaterial.js"></script>
+
+<script src="../js/hello.js"></script>
+<script src="../js/irt.js"></script>
+
+<script src="../js/testCtrl.js"></script>
+<script src="../js/testService.js"></script>
+</body>
+</html>
