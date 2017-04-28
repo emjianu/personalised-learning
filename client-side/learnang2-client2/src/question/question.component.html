@@ -1,0 +1,20 @@
+<div *ngIf="question">
+
+  <form>
+    <h1 [innerHTML]="question.questionText"> </h1>
+
+    <div *ngFor="let choice of question.currentChoices">
+      <div class="radio">
+        <input type="radio" name="choice_q{{question.id}}" value="{{choice.id}}"  [(ngModel)]="question.answer" ><label [innerHTML]="choice.choiceText"></label>
+      </div>
+
+    </div>
+
+    <button class="btn btn-default" (click)="sendAns();">Submit</button>
+  </form>
+
+  <div [innerHTML]="str" ></div>
+
+
+</div>
+
