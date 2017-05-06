@@ -32,6 +32,12 @@ public class UserKnowledge {
     @Max(5)
     private double score;
 
+
+    private int theoreticalQsAnswered;
+
+    private int reasoningQsAnswered;
+
+
     public UserKnowledge() {
 
     }
@@ -66,5 +72,21 @@ public class UserKnowledge {
 
     public void setScore(double score) {
         this.score = score;
+    }
+
+    public int getTheoreticalQsAnswered() {
+        return theoreticalQsAnswered;
+    }
+
+    public void setTheoreticalQsAnswered(int theoreticalQsAnswered) {
+        this.theoreticalQsAnswered = theoreticalQsAnswered;
+    }
+
+    public int getReasoningQsAnswered() {
+        return reasoningQsAnswered;
+    }
+
+    public void setReasoningQsAnswered(int reasoningQsAnswered) {
+        this.reasoningQsAnswered = reasoningQsAnswered;
     }
 }

@@ -1,6 +1,10 @@
 package com.slearn.question;
 
+import com.slearn.lesson.Lesson;
+import com.slearn.lesson.LessonService;
 import com.slearn.test.TestService;
+import com.slearn.user.User;
+import com.slearn.user.UserService;
 import com.slearn.util.QAMap;
 import com.slearn.util.QuestionFeedback;
 import com.slearn.util.QuestionQAns;
@@ -28,6 +32,15 @@ public class QuestionCtrl {
     @Autowired
     TestService testService;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    QuestionPoolingService qps;
+
+    @Autowired
+    LessonService lessonService;
+
     @ResponseBody
     @RequestMapping(value = "/tests/{testid}", method = RequestMethod.GET)
     public List<Question> getTestQuestions(@PathVariable long testid) {
@@ -44,22 +57,25 @@ public class QuestionCtrl {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/lessons/{lessonid}/question", method = RequestMethod.GET)
-    public Question getTestQuestions(@PathVariable long lessonid, String userid) {
+    @RequestMapping(value = "lessons/{lessonid}/users/{userid}/question", method = RequestMethod.GET)
+    public Question getTestQuestions(@PathVariable long lessonid, @PathVariable long userid) {
 
         System.out.println("did my lovely java receive my lovely params???? DID IT FUCKING GET THEM "+lessonid+" "+userid);
-        Question question = questionService.getQuestionByIdAndDiff(4, 2.5);
 
-        question.setAppliedDifficulty(2.5);
+        User user = userService.getUserById(userid);
+        Lesson lesson = lessonService.getLessonById(lessonid);
 
-        Collections.shuffle(question.getCurrentChoices());
+        Question theChosenOne = qps.nextQuestion(lesson, user, 2);
+
+       // Question theChosenOne = questionService.getQuestionByIdAndDiff(4, 2.5);
 
 
+        Collections.shuffle(theChosenOne.getCurrentChoices());
 
     /*  Question q = questionService.getParentQuestionById();*/
   /*  System.out.println("in java ctrl "+q.toString());*/
 
-        return question;
+        return theChosenOne;
     }
 
 

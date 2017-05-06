@@ -1,5 +1,7 @@
 package com.slearn.questionActivity;
 
+import com.slearn.question.Question;
+import com.slearn.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,14 @@ public class QuestionActivityService {
         }
 
         return qa;
+    }
+
+    //return the lowest difficulty applied for a question ever for a user
+    public double getLowestDiffApplied(User user, Question question){
+
+        double l = questionActivityRepository.getLowestDiffByUserAndQuestion(user.getId(), question.getId());
+
+        return l;
     }
 
 

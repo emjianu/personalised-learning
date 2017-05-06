@@ -1,5 +1,6 @@
 package com.slearn.questionActivity;
 
+import com.slearn.KI.KnowledgeItem;
 import com.slearn.lesson.Lesson;
 import com.slearn.question.Question;
 import com.slearn.user.User;
@@ -32,6 +33,10 @@ public class QuestionActivity {
     @ManyToOne
     @JoinColumn(name = "lesson")
     private Lesson lesson;
+
+    @ManyToOne
+    @JoinColumn(name = "knowledge_item")
+    private KnowledgeItem knowledgeItem;
 
     private double difficulty;
 
@@ -88,5 +93,13 @@ public class QuestionActivity {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public KnowledgeItem getKnowledgeItem() {
+        return knowledgeItem;
+    }
+
+    public void setKnowledgeItem(KnowledgeItem knowledgeItem) {
+        this.knowledgeItem = knowledgeItem;
     }
 }

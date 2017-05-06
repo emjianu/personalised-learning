@@ -5,7 +5,7 @@ import {Question} from "./question";
 export class QuestionFeedback {
 
   answeredQuestion: Question;
-  wasCorrect: boolean;
+  correct: boolean;
   notes: string;
 
 }

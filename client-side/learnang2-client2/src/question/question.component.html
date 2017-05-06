@@ -1,9 +1,9 @@
 <div *ngIf="question">
 
   <form>
-    <h1 [innerHTML]="question.questionText"> </h1>
+    <h2 [innerHTML]="question.questionText" class="text-q"> </h2>
 
-    <div *ngFor="let choice of question.currentChoices">
+    <div *ngFor="let choice of question.currentChoices" class="choice-container">
       <div class="radio">
         <input type="radio" name="choice_q{{question.id}}" value="{{choice.id}}"  [(ngModel)]="question.answer" ><label [innerHTML]="choice.choiceText"></label>
       </div>
@@ -14,6 +14,9 @@
   </form>
 
   <div [innerHTML]="str" ></div>
+
+
+  <br><div *ngIf="answered" ><a href="/lessons/{{lesson.id}}/test" class="btn btn-info">NEXT</a></div>
 
 
 </div>

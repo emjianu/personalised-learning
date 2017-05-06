@@ -214,6 +214,31 @@ public class Question {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Question question = (Question) o;
+
+        if (type != question.type) return false;
+        if (Double.compare(question.appliedDifficulty, appliedDifficulty) != 0) return false;
+        if (id != null ? !id.equals(question.id) : question.id != null) return false;
+        return questionText != null ? questionText.equals(question.questionText) : question.questionText == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (questionText != null ? questionText.hashCode() : 0);
+        result = 31 * result + type;
+        temp = Double.doubleToLongBits(appliedDifficulty);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Question{" +
                 "id=" + id +

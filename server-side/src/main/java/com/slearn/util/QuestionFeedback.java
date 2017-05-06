@@ -9,7 +9,7 @@ public class QuestionFeedback {
 
     private Question answeredQuestion;
 
-    private boolean wasCorrect;
+    private boolean correct;
 
     private String notes;
 
@@ -26,12 +26,12 @@ public class QuestionFeedback {
         this.answeredQuestion = answeredQuestion;
     }
 
-    public boolean isWasCorrect() {
-        return wasCorrect;
+    public boolean isCorrect() {
+        return correct;
     }
 
-    public void setWasCorrect(boolean wasCorrect) {
-        this.wasCorrect = wasCorrect;
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
     }
 
     public String getNotes() {
@@ -40,5 +40,14 @@ public class QuestionFeedback {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    @Override
+    public String toString() {
+        return "QuestionFeedback{" +
+                "answeredQuestion=" + answeredQuestion +
+                ", correct=" + correct +
+                ", notes='" + notes + '\'' +
+                '}';
     }
 }

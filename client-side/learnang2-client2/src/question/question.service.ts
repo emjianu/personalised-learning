@@ -21,19 +21,17 @@ export class QuestionService{
 
 //this should be according to user id --- different question fetching
   getQuestion(userid: number, lessonid: number): Promise<Question> {
-    const url = `${this.questionsUrl}/${lessonid}/question`;
+    const url = `${this.questionsUrl}/${lessonid}/users/${userid}/question`;
 
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('userid', userid+"");
+ /*   let params: URLSearchParams = new URLSearchParams();
+    params.set('userid', userid+"");*/
 /*
     let requestOptions = new RequestOptions();
     requestOptions.search = params;*/
 
 
 
-    return this.http.get(url,{
-      search: params
-    })
+    return this.http.get(url)
       .toPromise()
       .then(response => {
         console.log(response.json());
@@ -67,6 +65,7 @@ export class QuestionService{
       .post(url, {questionId: questionid, answerId: answerid, userId: userid, appliedDifficulty: appliedDifficulty}, {headers: this.headers})
       .toPromise()
       .then(response => {
+        console.log(response);
         console.log(response.json());
         return response.json() as QuestionFeedback;})
       .catch(this.handleError);
