@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+.padding-md-top{
+  padding-top: 10px;
+}
+
+.padding-md-bottom{
+  padding-bottom: 10px;
+}
+
+
+.error{
+  color: red;
+}

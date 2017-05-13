@@ -1,0 +1,22 @@
+<div class="row">
+
+  <div *ngFor="let lesson of lessons">
+
+    <div class="span4">
+      <div class="icons-box">
+ <!--       <i class="ico-ok ico-white circle-color-full big-color">
+          &lt;!&ndash;   <span class="glyphicon glyphicon-search"></span>&ndash;&gt;
+
+        </i>-->
+        <div class="title"><h3><a [routerLink]="['/lessons', lesson.id]">{{lesson.title}}</a></h3></div>
+
+        <div class="clear"></div>
+      </div>
+    </div>
+
+
+
+    <!--<span class="badge">{{lesson.id}}</span> {{lesson.title}}-->
+  </div>
+
+</div>

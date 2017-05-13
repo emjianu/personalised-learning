@@ -1,0 +1,23 @@
+
+
+
+<div *ngIf="lesson">
+
+  <div class="padding-md-bottom">
+    <a [routerLink]="['/lessons',lesson.id, 'test']" class="btn btn-inverse" role="button">Take a Test</a>
+
+  </div>
+
+  <span class="lesson-number title-padding">Or read about...</span>
+
+  <h1 class="title-padding">{{lesson.title}}</h1>
+
+  <p [innerHTML]="lesson.content"></p>
+<!--<lesson-content [lesson]="lesson.content"></lesson-content>-->
+
+
+
+
+</div>
+
+

@@ -1,0 +1,51 @@
+<div *ngIf="question">
+
+  <form>
+
+    <div *ngIf="question.type == 0" >
+      <p class="question-type-tag"><span class="glyphicon glyphicon-book"></span> theory </p>
+    </div>
+
+    <div *ngIf="question.type == 1">
+      <p class="question-type-tag"><span class="glyphicon glyphicon-blackboard"></span> reasoning </p>
+    </div>
+    <h2 [innerHTML]="question.questionText" class="text-q"> </h2>
+<div class="choice-container">
+    <div *ngFor="let choice of question.currentChoices" class="choice-container">
+      <div class="radio">
+        <input type="radio" name="choice_q{{question.id}}" value="{{choice.id}}"  [(ngModel)]="question.answer" ><label [innerHTML]="choice.choiceText"></label>
+      </div>
+
+    </div>
+
+</div>
+
+    <div class="text-center small-padding">
+    <button class="btn btn-inverse" (click)="sendAns();">Submit</button>
+    </div>
+  </form>
+
+  <div [innerHTML]="str" ></div>
+
+
+  <br><div *ngIf="answered" ><a [routerLink]="['/lessons',lesson.id, 'test']" class="btn btn-info">NEXT</a></div>
+
+  <hr />
+  <p>Your Current Ability: <strong>{{question.currentAbility}}</strong></p>
+  <p>Current Applied Difficulty: <strong>{{question.appliedDifficulty}}</strong></p>
+
+  <p>Answered before: <strong><span *ngIf="question.answeredBefore">YES</span>
+    <span *ngIf="!question.answeredBefore">NO</span>
+  </strong></p>
+  <p>Last Answered: <strong><span *ngIf="question.latestStatus">CORRECT</span>
+    <span *ngIf="!question.latestStatus">WRONG</span>
+  </strong></p>
+  <p>Total Previous Answers: <strong>{{question.noOfPreviousAnswers}}</strong></p>
+  <p>CORRECT Previous Answers: <strong>{{question.noOfPreviousCorrectAnswers}}</strong></p>
+  <p>INCORRECT Previous Answers: <strong>{{question.noOfPreviousWrongAnswers}}</strong></p>
+  <p>Last Applied Difficulty: <strong>{{question.lastPrevAppDiff}}</strong></p>
+
+
+
+
+</div>
