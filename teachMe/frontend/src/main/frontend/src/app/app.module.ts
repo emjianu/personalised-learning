@@ -10,6 +10,7 @@ import {HomeComponent} from "../home/home.component";
 import {QuestionComponent} from "../question/question.component";
 import {LoginComponent} from "../login/login.component";
 import {RegisterComponent} from "../register/register.component";
+import {SideMenuComponent} from "../sidemenu/sidemenu.component";
 
 
 
@@ -37,7 +38,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent, LessonComponent, HomeComponent, QuestionComponent, LoginComponent, RegisterComponent
+    AppComponent, LessonComponent, HomeComponent, QuestionComponent, LoginComponent, RegisterComponent, SideMenuComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

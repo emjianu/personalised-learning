@@ -18,6 +18,7 @@ import {UserService} from "./user.service";
 export class LoginComponent implements OnInit {
 
   user: User;
+  error: string;
 
   constructor (
     private router: Router,
@@ -37,8 +38,12 @@ export class LoginComponent implements OnInit {
     if (!this.user) { return; }
     this.userService.loginUser(this.user)
       .then( result =>{
-      console.log("received")
-      console.log(result)
+      console.log("received");
+      console.log(result);
+
+      if(result.id == 0){
+        this.error = "Sorry, but the credentials are not correct."
+      }
       this.router.navigate(['/home']);
     });
 

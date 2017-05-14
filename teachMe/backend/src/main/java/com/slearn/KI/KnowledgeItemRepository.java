@@ -15,7 +15,7 @@ import java.util.List;
 
 public interface KnowledgeItemRepository extends CrudRepository<KnowledgeItem, Long> {
 
-    @Query("select distinct ki from KnowledgeItem ki inner join ki.knowledgeItemScores kis where kis.user.id = :idUser and kis.knowledgeItem.lesson.id = :idLesson and (kis.theoreticalQsAnswered > 0 or kis.reasoningQsAnswered > 0)")
+    @Query(value = "select distinct ki from KnowledgeItem ki inner join ki.knowledgeItemScores kis where kis.user.id = :idUser and kis.knowledgeItem.lesson.id = :idLesson and (kis.theoreticalQsAnswered > 0 or kis.reasoningQsAnswered > 0)")
     List<KnowledgeItem> getAllTackledKIsForUserAndLesson(@Param("idUser") long idUser, @Param("idLesson") long idLesson);
 
 
@@ -28,5 +28,9 @@ public interface KnowledgeItemRepository extends CrudRepository<KnowledgeItem, L
      */
     @Query("select distinct ki from KnowledgeItem ki inner join ki.knowledgeItemScores kis where kis.user.id = :idUser and kis.knowledgeItem.lesson.id = :idLesson and  (kis.theoreticalQsAnswered = 0 and kis.reasoningQsAnswered = 0)")
     List<KnowledgeItem> getNextUNTackledKIforUserAndLesson(@Param("idUser") long idUser , @Param("idLesson") long idLesson, Pageable pageable);
+
+
+    @Query("select distinct ki from KnowledgeItem ki where ki.lesson.id = :idLesson")
+    List<KnowledgeItem> findFirst(@Param("idLesson") long idLesson, Pageable pageable);
 
 }

@@ -56,5 +56,15 @@ public class KnowledgeItemService {
         return ki;
     }
 
+    public KnowledgeItem getFirstKI(long lessonId) {
+        List<KnowledgeItem> kis = new ArrayList<>();
+        try {
+             kis = knowledgeItemRepository.findFirst(lessonId, new PageRequest(0, 1));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return kis.get(0);
+    }
+
 
 }

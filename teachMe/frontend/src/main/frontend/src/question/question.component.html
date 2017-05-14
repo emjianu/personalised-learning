@@ -2,35 +2,53 @@
 
   <form>
 
-    <div *ngIf="question.type == 0" >
+    <div *ngIf="question.type == 0">
       <p class="question-type-tag"><span class="glyphicon glyphicon-book"></span> theory </p>
     </div>
 
     <div *ngIf="question.type == 1">
       <p class="question-type-tag"><span class="glyphicon glyphicon-blackboard"></span> reasoning </p>
     </div>
-    <h2 [innerHTML]="question.questionText" class="text-q"> </h2>
-<div class="choice-container">
-    <div *ngFor="let choice of question.currentChoices" class="choice-container">
-      <div class="radio">
-        <input type="radio" name="choice_q{{question.id}}" value="{{choice.id}}"  [(ngModel)]="question.answer" ><label [innerHTML]="choice.choiceText"></label>
+    <h2 [innerHTML]="question.questionText" class="text-q"></h2>
+    <div class="choice-container">
+      <div *ngFor="let choice of question.currentChoices" class="choice-container">
+        <div class="radio">
+          <input type="radio" name="choice_q{{question.id}}" value="{{choice.id}}" [(ngModel)]="question.answer"><label
+          [innerHTML]="choice.choiceText"></label>
+        </div>
+
       </div>
 
     </div>
 
-</div>
-
-    <div class="text-center small-padding">
-    <button class="btn btn-inverse" (click)="sendAns();">Submit</button>
+    <div class="text-center small-padding" *ngIf="!answered">
+      <button class="btn btn-inverse" (click)="sendAns();" >Submit</button>
     </div>
   </form>
 
-  <div [innerHTML]="str" ></div>
+
+  <div class="text-center small-padding">
+    <div *ngIf="answered">
+      <div [innerHTML]="str" class="row large-font"></div>
+      <br>
+      <div class="row">
+        <div class="col-xs-3 col-sm-3"></div>
+        <div class=" col-xs-3 col-sm-3">
+          <button (click)="getQuestion();" class="btn btn-inverse">NEXT</button>
+        </div>
+        <div class="col-xs-3 col-sm-3">
+          <a [routerLink]="['/home']" class="btn btn-default" role="button">End Test</a>
+        </div>
+
+        <div class="col-xs-3 col-sm-3"></div>
+
+      </div>
+
+    </div>
+  </div>
 
 
-  <br><div *ngIf="answered" ><a [routerLink]="['/lessons',lesson.id, 'test']" class="btn btn-info">NEXT</a></div>
-
-  <hr />
+  <hr/>
   <p>Your Current Ability: <strong>{{question.currentAbility}}</strong></p>
   <p>Current Applied Difficulty: <strong>{{question.appliedDifficulty}}</strong></p>
 
@@ -44,8 +62,6 @@
   <p>CORRECT Previous Answers: <strong>{{question.noOfPreviousCorrectAnswers}}</strong></p>
   <p>INCORRECT Previous Answers: <strong>{{question.noOfPreviousWrongAnswers}}</strong></p>
   <p>Last Applied Difficulty: <strong>{{question.lastPrevAppDiff}}</strong></p>
-
-
 
 
 </div>

@@ -1,5 +1,6 @@
 package com.slearn.user;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -55,7 +56,12 @@ public class UserService {
         try {
 
             // encrypt and set new password
-            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+           // user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+
+            StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+            String encryptedPassword = passwordEncryptor.encryptPassword(user.getPassword());
+
+            user.setPassword(encryptedPassword);
 
             user = userRepository.save(user);
         } catch (Exception ex) {

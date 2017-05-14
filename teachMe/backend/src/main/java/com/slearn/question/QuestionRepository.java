@@ -33,5 +33,9 @@ public interface QuestionRepository extends CrudRepository<Question, Long> {
     @Query("select distinct q from Question q inner join q.questionActivities qa where qa.user.id = :userId and qa.knowledgeItem.id = :kiId and qa.question.type = :type and qa.status = :ans")
     List<Question> getByUserAndKnowledgeItemAndTypeAndAnswer( @Param("userId") long userId, @Param("kiId") long kiId, @Param("type") int type, @Param("ans") boolean ans);
 
+
+    @Query("select distinct q from Question q inner join q.questionActivities qa where qa.user.id = :userId and qa.knowledgeItem.id = :kiId and qa.status = :ans")
+    List<Question> getByUserAndKnowledgeItemAndAnswer( @Param("userId") long userId, @Param("kiId") long kiId, @Param("ans") boolean ans);
+
    //Question findParentQuestion(@Param("questionId") Question question);
 }

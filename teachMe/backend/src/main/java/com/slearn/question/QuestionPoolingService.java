@@ -88,38 +88,48 @@ public class QuestionPoolingService {
         System.out.println(kni.toString());
         System.out.println(kis.toString());
 
-        if (kni.size() > 0) {
-            kis.addAll(kni);
+        KnowledgeItem chosenKI = null;
+
+        if (kis.size() == 0 && kni.size() == 0) {
+            chosenKI = knowledgeItemService.getFirstKI(lesson.getId());
+        } else {
+
+            if (kni.size() > 0) {
+                kis.addAll(kni);
+            }
+
+            Collections.shuffle(kis);
+
+            //dont matter cuz its shuffled
+            chosenKI = kis.get(0);
+
+            System.out.println(chosenKI);
+
+
+            //for testing use the first 2 ki
+            chosenKI = knowledgeItemService.getById((long) 1);
+            // KnowledgeItem test2 = knowledgeItemService.getById((long) 2);
+
+            //ArrayList<KnowledgeItem> testItems = new ArrayList<>();
+
+            //testItems.add(test);
+            //testItems.add(test2);
+
+            //Collections.shuffle(testItems);
+
+
         }
-
-        Collections.shuffle(kis);
-
-        //dont matter cuz its shuffled
-        KnowledgeItem chosenKI = kis.get(0);
-
-        System.out.println(chosenKI);
-
-
-        //for testing use the first 2 ki
-        KnowledgeItem test = knowledgeItemService.getById((long) 1);
-        KnowledgeItem test2 = knowledgeItemService.getById((long) 2);
-
-        ArrayList<KnowledgeItem> testItems = new ArrayList<>();
-
-        testItems.add(test);
-        testItems.add(test2);
-
-        Collections.shuffle(testItems);
-
 
 
         //should be return chosen ki;
-       // return testItems.get(0);
-        return test;
+        // return testItems.get(0);
+        return chosenKI;
 
     }
 
     public Question getRandomTheoreticalQuestion(User user, KnowledgeItem ki, double ability) {
+
+        System.out.println("I WILL BE TH");
 
         Question theChosenOne = null;
 
@@ -129,6 +139,8 @@ public class QuestionPoolingService {
 
         //we still have unanswered theoretical questions
         if (nonAnswered.size() > 0) {
+
+            System.out.println("I WILL BE TH UNANSWRD");
 
             Collections.shuffle(nonAnswered);
 
@@ -149,11 +161,13 @@ public class QuestionPoolingService {
 
         } else {
 
+            System.out.println("I WILL BE TH ANS WRONG");
+
             //from all the questions, get first the ones he got wrong, and offer them with easier difficulty!!
             //then, ultimately, offer the questions he answered correctly but with much greater difficulty
             List<Question> allWrongThQs = questionService.getAllCurrentlySTILLWrongTheoreticalQuestions(user, ki);
 
-            if(allWrongThQs.size() > 0) {
+            if (allWrongThQs.size() > 0) {
 
                 Collections.shuffle(allWrongThQs);
                 theChosenOne = allWrongThQs.get(0);
@@ -173,7 +187,6 @@ public class QuestionPoolingService {
                 theChosenOne.setAppliedDifficulty(new_difficulty);
 
 
-
                 //for display thingies
                 //im so tired.
          /*       theChosenOne.setAnsweredBefore(true);
@@ -186,6 +199,8 @@ public class QuestionPoolingService {
 
             } else {
 
+
+                System.out.println("I WILL BE TH ANS CORRECT");
                 double diff_increase_ratio = 2;
 
                 List<Question> allCorrectThQs = questionService.getAllCorrectTheoreticalQuestions(user, ki);
@@ -199,7 +214,7 @@ public class QuestionPoolingService {
                 //apply about 1.5 times more diff
                 double new_difficulty = high + diff_increase_ratio;
 
-                if(new_difficulty >= 5){
+                if (new_difficulty >= 5) {
                     new_difficulty = 4.9;
                 }
                 System.out.println(new_difficulty);
@@ -228,29 +243,127 @@ public class QuestionPoolingService {
         theChosenOne.setNoOfPreviousWrongAnswers(questionActivityService.getNumberOfAnswerTimesWrong(user,theChosenOne));*/
 
 
-
         return theChosenOne;
     }
 
 
     public Question getRandomQuestionIncludingReasoning(User user, KnowledgeItem ki, double ability) {
 
+        System.out.println("I WILL BE ANY !!!!");
+
         List<Question> nonAnswered = questionService.getAllUnansweredQuestions(user, ki);
 
-        System.out.println(nonAnswered.toString());
+        Question theChosenOne = null;
 
-        Question theChosenOne = nonAnswered.get(0);
+        double diff_decrease_ratio = (double) 1 / 2;
 
-        choiceService.getChoicesForQuestion(ability, theChosenOne);
 
-        setDisplayInfo(theChosenOne, user, false, 0, false, ability);
+        if (nonAnswered.size() > 0) {
+            System.out.println("I WILL BE ANY UNANSW!!!!");
 
-        Collections.shuffle(nonAnswered);
+            Collections.shuffle(nonAnswered);
+
+            System.out.println(nonAnswered.toString());
+
+            theChosenOne = nonAnswered.get(0);
+
+            //apply difficulty with an extra
+            if (ability <= (5 - extra_difficulty)) {
+                choiceService.getChoicesForQuestion(ability + extra_difficulty, theChosenOne);
+                theChosenOne.setAppliedDifficulty(ability + extra_difficulty);
+            } else {
+                choiceService.getChoicesForQuestion(ability, theChosenOne);
+                theChosenOne.setAppliedDifficulty(ability);
+            }
+
+            setDisplayInfo(theChosenOne, user, false, 0, false, ability);
+
+        } else if (nonAnswered.size() == 0) {
+
+            System.out.println("I WILL BE ANY ANS WRONG!!!!");
+
+            double diff_increase_ratio = 2;
+
+            //from all the questions, get first the ones he got wrong, and offer them with easier difficulty!!
+            //then, ultimately, offer the questions he answered correctly but with much greater difficulty
+
+            // this includes the reasoning quesitions
+            List<Question> allWrongQs = questionService.getAllCurrentlySTILLWrongQuestions(user, ki);
+
+            if (allWrongQs.size() > 0) {
+
+                Collections.shuffle(allWrongQs);
+                theChosenOne = allWrongQs.get(0);
+
+                double low = questionActivityService.getLatestDiffAppliedForWrong(user, theChosenOne);
+
+                System.out.println("chosen :: " + theChosenOne.toString());
+                System.out.println("low :: " + low);
+
+
+                //apply about 1/2 of the lowest difficulty previously applied
+                double new_difficulty = low * diff_decrease_ratio;
+                System.out.println(new_difficulty);
+
+                choiceService.getChoicesForQuestion(new_difficulty, theChosenOne);
+                theChosenOne.setAppliedDifficulty(new_difficulty);
+
+
+                setDisplayInfo(theChosenOne, user, true, low, false, ability);
+
+            } else {
+
+                System.out.println("I WILL BE ANY ANS CORRECT!!!!");
+                List<Question> allCorrectQs = questionService.getAllCorrectQuestions(user, ki);
+
+                Collections.shuffle(allCorrectQs);
+                theChosenOne = allCorrectQs.get(0);
+
+                double high = questionActivityService.getLatestDiffAppliedForCorrect(user, theChosenOne);
+
+
+                //apply about 1.5 times more diff
+                double new_difficulty = high + diff_increase_ratio;
+
+                if (new_difficulty >= 5) {
+                    new_difficulty = 4.9;
+                }
+                System.out.println(new_difficulty);
+
+                System.out.println("high :: " + high);
+
+                choiceService.getChoicesForQuestion(new_difficulty, theChosenOne);
+                theChosenOne.setAppliedDifficulty(new_difficulty);
+
+     /*           theChosenOne.setAnsweredBefore(true);
+                theChosenOne.setLastPrevAppDiff(high);
+                theChosenOne.setLatestStatus(true);*/
+
+                setDisplayInfo(theChosenOne, user, true, high, true, ability);
+            }
+
+        }
+
+
+ /*       else {
+
+            System.out.println(nonAnswered.toString());
+
+            theChosenOne = nonAnswered.get(0);
+
+            choiceService.getChoicesForQuestion(ability, theChosenOne);
+
+            setDisplayInfo(theChosenOne, user, false, 0, false, ability);
+
+            Collections.shuffle(nonAnswered);
+
+
+        }*/
 
         return theChosenOne;
     }
 
-    public void setDisplayInfo(Question q, User user, boolean ansBefore, double diff, boolean latestStatus, double ability){
+    public void setDisplayInfo(Question q, User user, boolean ansBefore, double diff, boolean latestStatus, double ability) {
 
         q.setAnsweredBefore(ansBefore);
         q.setLastPrevAppDiff(diff);
@@ -259,9 +372,9 @@ public class QuestionPoolingService {
 
         q.setCurrentAbility(ability);
 
-        q.setNoOfPreviousAnswers(questionActivityService.getNumberOfAnswerTimesTotal(user,q));
-        q.setNoOfPreviousCorrectAnswers(questionActivityService.getNumberOfAnswerTimesCorrect(user,q));
-        q.setNoOfPreviousWrongAnswers(questionActivityService.getNumberOfAnswerTimesWrong(user,q));
+        q.setNoOfPreviousAnswers(questionActivityService.getNumberOfAnswerTimesTotal(user, q));
+        q.setNoOfPreviousCorrectAnswers(questionActivityService.getNumberOfAnswerTimesCorrect(user, q));
+        q.setNoOfPreviousWrongAnswers(questionActivityService.getNumberOfAnswerTimesWrong(user, q));
 
     }
 

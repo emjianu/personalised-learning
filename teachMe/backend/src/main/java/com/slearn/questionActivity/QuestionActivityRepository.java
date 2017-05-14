@@ -11,7 +11,7 @@ public interface QuestionActivityRepository extends CrudRepository<QuestionActiv
 
 
     //select the newest record for wrong answer by user and question
-    @Query("select min(qa.id) from QuestionActivity qa where qa.user.id = :userId and qa.question.id = :qId and qa.status = :status")
+    @Query("select max(qa.id) from QuestionActivity qa where qa.user.id = :userId and qa.question.id = :qId and qa.status = :status")
     public long getLowestDiffByUserAndQuestion(@Param("userId") long userId, @Param("qId") long qId, @Param("status") boolean status);
 
 

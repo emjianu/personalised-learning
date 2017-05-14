@@ -290,6 +290,16 @@ public class QuestionService {
     }
 
 
+    public List<Question> getAllCorrectQuestions(User user, KnowledgeItem knowledgeItem) {
+
+        List<Question> allCorrectQs = questionRepository.getByUserAndKnowledgeItemAndAnswer(user.getId(), knowledgeItem.getId(), true);
+
+        System.out.println(allCorrectQs.toString());
+
+        return allCorrectQs;
+    }
+
+
     /**
      *
      * get all the theoretical questions that the user still has not answered correctly
@@ -319,6 +329,28 @@ public class QuestionService {
 
         return allSTILLWrong;
     }
+
+
+
+    public List<Question> getAllCurrentlySTILLWrongQuestions(User user, KnowledgeItem knowledgeItem) {
+
+        List<Question> allSTILLWrong = new ArrayList<>();
+
+        List<Question> allWrongQs = questionRepository.getByUserAndKnowledgeItemAndAnswer(user.getId(), knowledgeItem.getId(), false);
+
+        List<Question> allCorrectQs = questionRepository.getByUserAndKnowledgeItemAndAnswer(user.getId(), knowledgeItem.getId(), true);
+
+        for(Question wrong: allWrongQs){
+            if(!allCorrectQs.contains(wrong)){
+                allSTILLWrong.add(wrong);
+            }
+        }
+
+        System.out.println(allWrongQs.toString());
+
+        return allSTILLWrong;
+    }
+
 
 
     public void updateQuestionTypeScore(User user, Question q, QuestionFeedback qf, UserKnowledge uk) {

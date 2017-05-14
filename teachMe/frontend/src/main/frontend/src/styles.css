@@ -13,3 +13,12 @@
 .error{
   color: red;
 }
+
+.correct{
+  color: #2e6da4;
+}
+
+
+.large-font{
+  font-size: large;
+}

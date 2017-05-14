@@ -47,6 +47,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt</artifactId>
+			<version>1.8</version>
+			<scope>compile</scope>
+		</dependency>
+
 
 		<dependency>
 			<groupId>com.teach</groupId>

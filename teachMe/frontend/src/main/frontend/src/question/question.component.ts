@@ -11,6 +11,7 @@ import 'rxjs/add/operator/switchMap';
 import {Question} from "./question";
 import {QuestionService} from "./question.service";
 import {Lesson} from "../lesson/lesson";
+import {User} from "../login/user";
 
 @Component({
   selector: 'question',
@@ -23,6 +24,7 @@ export class QuestionComponent implements OnInit {
 
   errorMsg: string;
   question: Question;
+  user: User;
 
   lesson: Lesson;
   answered: boolean;
@@ -36,17 +38,26 @@ export class QuestionComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.user = JSON.parse(localStorage.getItem("currentUser"));
     this.lesson = new Lesson();
+    this.getQuestion();
 
+
+  }
+
+  getQuestion(): any{
+    this.question = null;
+    this.answered = false;
+    this.str = "";
     this.route.params
       .switchMap((params: Params) => {
-        console.log(params)
-        console.log(JSON.parse(localStorage.getItem("currentUser")));
+        console.log(params);
+        console.log(this.user);
 
         this.lesson.id = params.id;
 
         //for user 1 and lesson 1
-        return this.questionService.getQuestion(JSON.parse(localStorage.getItem("currentUser")).id, params.id);
+        return this.questionService.getQuestion(this.user.id, params.id);
 
       })
       .subscribe(question => {
@@ -62,16 +73,16 @@ export class QuestionComponent implements OnInit {
     if (!this.question.answer) {
       return;
     }
-    this.questionService.sendAnswer(this.question.id, this.question.lesson.id, this.question.answer, this.question.appliedDifficulty, 1)
+    this.questionService.sendAnswer(this.question.id, this.question.lesson.id, this.question.answer, this.question.appliedDifficulty, this.user.id)
       .then(result => {
         console.log("received");
         this.answered = true;
         if (result.correct) {
           console.log("was correct")
-          this.str = '<p>You answered <strong>correctly</strong></p>';
+          this.str = '<span class="correct">CORRECT!</strong></span>';
         } else {
           console.log("was incorrect")
-          this.str = '<p>You answered <strong>incorrectly</strong></p>';
+          this.str = '<span class="error">INCORRECT!</strong></span>';
         }
         console.log(result)
       });

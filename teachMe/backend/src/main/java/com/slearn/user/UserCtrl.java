@@ -26,9 +26,8 @@ public class UserCtrl {
 
         System.out.println("usr "+input.toString());
 
-        User user = null;
 
-        securityService.autologin(input.getUsername(), input.getPassword());
+        User user = securityService.autologin(input.getUsername(), input.getPassword());
 
         return user;
     }
