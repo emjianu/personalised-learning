@@ -3,11 +3,7 @@ package com.slearn.user;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Service;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -22,13 +18,10 @@ public class SecurityServiceImpl {
 
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
     private UserService userService;
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
+/*    @Autowired
+    private CustomUserDetailsService userDetailsService;*/
 
    /* private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);*/
 
