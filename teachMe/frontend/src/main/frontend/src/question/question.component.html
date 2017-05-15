@@ -13,8 +13,8 @@
     <div class="choice-container">
       <div *ngFor="let choice of question.currentChoices" class="choice-container">
         <div class="radio">
-          <input type="radio" name="choice_q{{question.id}}" value="{{choice.id}}" [(ngModel)]="question.answer"><label
-          [innerHTML]="choice.choiceText"></label>
+          <input type="radio" id="choice_q{{choice.id}}" name="choice_q{{question.id}}" value="{{choice.id}}" [(ngModel)]="question.answer"><label
+          [innerHTML]="choice.choiceText" for="choice_q{{choice.id}}"></label>
         </div>
 
       </div>

@@ -22,3 +22,13 @@
 .large-font{
   font-size: large;
 }
+
+
+
+.no-top-margin{
+  margin-top: 0px;
+}
+
+.no-bottom-margin{
+  margin-bottom: 0px;
+}

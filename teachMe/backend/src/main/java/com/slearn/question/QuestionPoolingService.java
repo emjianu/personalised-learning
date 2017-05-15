@@ -90,6 +90,8 @@ public class QuestionPoolingService {
 
         KnowledgeItem chosenKI = null;
 
+        ArrayList<KnowledgeItem> testItems = new ArrayList<>();
+
         if (kis.size() == 0 && kni.size() == 0) {
             chosenKI = knowledgeItemService.getFirstKI(lesson.getId());
         } else {
@@ -107,23 +109,25 @@ public class QuestionPoolingService {
 
 
             //for testing use the first 2 ki
-            chosenKI = knowledgeItemService.getById((long) 1);
-            // KnowledgeItem test2 = knowledgeItemService.getById((long) 2);
+           // chosenKI = knowledgeItemService.getById((long) 1);
+            KnowledgeItem test2 = knowledgeItemService.getById((long) 2);
 
-            //ArrayList<KnowledgeItem> testItems = new ArrayList<>();
+            KnowledgeItem test = knowledgeItemService.getById((long) 1);
 
-            //testItems.add(test);
-            //testItems.add(test2);
+            testItems = new ArrayList<>();
 
-            //Collections.shuffle(testItems);
+            testItems.add(test);
+            testItems.add(test2);
+
+            Collections.shuffle(testItems);
 
 
         }
 
 
         //should be return chosen ki;
-        // return testItems.get(0);
-        return chosenKI;
+        return testItems.get(0);
+        //return chosenKI;
 
     }
 

@@ -15,6 +15,7 @@ import {SideMenuComponent} from "../sidemenu/sidemenu.component";
 
 
 
+
 const appRoutes: Routes = [
   { path: 'lessons/:id', component: LessonComponent },
   { path: 'home', component: HomeComponent },

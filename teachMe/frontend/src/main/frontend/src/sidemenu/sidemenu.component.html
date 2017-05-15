@@ -1,12 +1,12 @@
 <div *ngIf="user">
 
 <ul class="sidebar-nav">
+
   <li class="sidebar-brand">
-    <a href="#">
-      Start Bootstrap
-    </a>
+    <a [routerLink]="['/home']">Home</a>
   </li>
-  <li>
+  <hr class="no-bottom-margin no-top-margin">
+  <li class="sidebar-brand">
     <span class="username">{{user.username}}</span>
   </li>
   <li>
