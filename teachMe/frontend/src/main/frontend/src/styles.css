@@ -32,3 +32,34 @@
 .no-bottom-margin{
   margin-bottom: 0px;
 }
+
+.side-btn{
+  background-color: #000;
+  color: white;
+}
+
+
+.lighter-color{
+  color: #afabab;
+}
+
+.white{
+  color: white;
+}
+
+.grey{
+  border-top-color: #1E0246;
+}
+
+
+.md-top-paddding{
+  padding-top: 18px;
+}
+
+.light-grey{
+  color: #b3b3b3;
+}
+
+.no-left-padding{
+  padding-left: 0px;
+}

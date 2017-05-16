@@ -62,7 +62,19 @@ public class UserService {
 
             user.setPassword(encryptedPassword);
 
-            user = userRepository.save(user);
+
+            User check = userRepository.findByUsername(user.getUsername());
+
+            //username exists!!!!
+            //send an empty user with id 0
+            if(check != null){
+                user = new User();
+                user.setId((long)0);
+            } else {
+
+                user.levelUp();
+                user = userRepository.save(user);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }

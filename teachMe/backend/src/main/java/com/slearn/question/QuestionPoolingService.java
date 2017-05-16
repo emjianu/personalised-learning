@@ -102,31 +102,33 @@ public class QuestionPoolingService {
 
             Collections.shuffle(kis);
 
-            //dont matter cuz its shuffled
-            chosenKI = kis.get(0);
+          /*  //dont matter cuz its shuffled
+            chosenKI = kis.get(0);*/
 
             System.out.println(chosenKI);
 
 
             //for testing use the first 2 ki
-           // chosenKI = knowledgeItemService.getById((long) 1);
+                 // chosenKI = knowledgeItemService.getById((long) 1);
             KnowledgeItem test2 = knowledgeItemService.getById((long) 2);
 
             KnowledgeItem test = knowledgeItemService.getById((long) 1);
+
+            KnowledgeItem test3 = knowledgeItemService.getById((long) 3);
 
             testItems = new ArrayList<>();
 
             testItems.add(test);
             testItems.add(test2);
+            testItems.add(test3);
 
             Collections.shuffle(testItems);
 
-
+            chosenKI = testItems.get(0);
         }
 
-
         //should be return chosen ki;
-        return testItems.get(0);
+        return chosenKI;
         //return chosenKI;
 
     }

@@ -12,6 +12,8 @@ export class UserService {
 
   private usersUrl = 'users';
 
+  user: User;
+
 
   constructor(private http: Http) {
   }
@@ -30,8 +32,22 @@ export class UserService {
       .then(response => {
         console.log(response.json());
 
-        localStorage.setItem("currentUser", JSON.stringify(response.json()));
+        sessionStorage.setItem("currentUser", JSON.stringify(response.json()));
         return response.json() as User;})
+      .catch(this.handleError);
+  }
+
+
+
+  updateUser(id: number): Promise<User> {
+    const url = `/learn/users/${id}`;
+
+    return this.http.get(url)
+      .toPromise()
+      .then(response => {
+        console.log(response.json());
+        return response.json() as User;
+      })
       .catch(this.handleError);
   }
 
@@ -48,7 +64,12 @@ export class UserService {
       .then(response => {
         console.log(response.json());
 
-        localStorage.setItem("currentUser", JSON.stringify(response.json()));
+        this.user = response.json() as User;
+
+        if(this.user.id != 0){
+          sessionStorage.setItem("currentUser", JSON.stringify(response.json()));
+        }
+
         return response.json() as User;})
       .catch(this.handleError);
   }

@@ -20,10 +20,10 @@
             <li class="menu-item"><a href="#">Link</a></li>
             <li class="menu-item"><a href="#">Link</a></li>
           </ul>-->
-        <button class="btn btn-default" id="menu-toggle" (click)="isVisible = !isVisible;" id="toggle-btn">
-          <span class="glyphicon glyphicon-menu-hamburger"></span>
+        <a  (click)="isVisible = !isVisible;" id="toggle-btn" *ngIf="loggedIn()">
+          <span class="glyphicon glyphicon-menu-hamburger md-top-paddding"></span>
 
-        </button>
+        </a>
       </div>
     </nav>
 

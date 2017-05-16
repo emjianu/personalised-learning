@@ -53,7 +53,14 @@ export class RegisterComponent implements OnInit {
       .then(result => {
         console.log("received");
         console.log(result);
-        this.router.navigate(['/home']);
+
+        if(result.id == 0){
+          this.error = "This username is already in use.";
+        } else {
+          this.router.navigate(['/home']);
+        }
+
+
       }).catch(error => {
       this.error = error;
     });

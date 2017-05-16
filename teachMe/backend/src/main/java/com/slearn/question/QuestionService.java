@@ -167,6 +167,8 @@ public class QuestionService {
                 uk.setScore(previousScore + q_weight);
             }
 
+            user.addKPForCorrect();
+
         } else {
             //answered incorrectly
             qa.setStatus(false);
@@ -183,6 +185,8 @@ public class QuestionService {
 
                 System.out.println("should be " + uk.getScore());
             }
+
+            user.addKPForWrong();
 
         }
 

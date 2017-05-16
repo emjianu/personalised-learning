@@ -46,4 +46,16 @@ public class UserCtrl {
     }
 
 
+    @ResponseBody
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    public User getUser(@PathVariable long id) {
+
+        System.out.println("in java ctrl");
+        User user = userService.getUserById(id);
+
+
+        return user;
+    }
+
+
 }

@@ -38,7 +38,7 @@ export class QuestionComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.user = JSON.parse(localStorage.getItem("currentUser"));
+    this.user = JSON.parse(sessionStorage.getItem("currentUser"));
     this.lesson = new Lesson();
     this.getQuestion();
 

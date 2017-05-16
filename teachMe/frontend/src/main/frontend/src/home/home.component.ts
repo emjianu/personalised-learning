@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
 
   lessons: Lesson[];
   errorMessage: string;
+  isVisible: boolean;
 
   constructor(private lessonService: LessonService) {
   }
@@ -26,6 +27,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.getLessons();
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.isVisible = false;
   }
 
   getLessons() {

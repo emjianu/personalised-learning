@@ -6,7 +6,7 @@
 
     <form #registerform="ngForm" name="registerform" class="md-padding">
 
-      <div class="form-group">
+     <!-- <div class="form-group">
         <label for="email">Email</label>
         <input  id="email"  type="email" class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" required email/>
 
@@ -20,7 +20,7 @@
         <div [hidden]="!email.errors.valid">
           Invalid email address.
         </div>
-      </div>
+      </div>-->
 
       <div class="form-group">
         <label>Choose a username</label>
@@ -55,6 +55,12 @@
         <button class="btn btn-inverse" (click)="register()" [disabled]="!registerform.form.valid">Register</button>
       </div>
     </form>
+
+    <div class="text-center padding-md-top">
+      <p>Already have an account?</p>
+      <a [routerLink]="['/']" class="btn btn-inverse" role="button">Login</a>
+
+    </div>
 
 
   </div>

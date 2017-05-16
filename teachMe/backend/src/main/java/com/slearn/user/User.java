@@ -25,10 +25,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
     @Size(min = 2, max = 100)
     private String username;
 
-    @NotNull
     @Size(min = 2, max = 100)
     private String email;
 
@@ -50,6 +50,16 @@ public class User {
     private int xp;
 
     private int rank; //these will be predefined - must make a table for them
+
+
+    @Transient
+    int xp_gain_correct = 10;
+
+    @Transient
+    int xp_gain_wrong = 5;
+
+
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
@@ -142,6 +152,37 @@ public class User {
 
     public void setKnowledgeItemScores(Collection<UserKnowledge> knowledgeItemScores) {
         this.knowledgeItemScores = knowledgeItemScores;
+    }
+
+
+
+    //helper functions for scores and stuff
+
+    public void addKPForCorrect(){
+        int currentXP = this.xp;
+        this.setXp(currentXP + xp_gain_correct);
+        checkLevel();
+
+    }
+
+    public void addKPForWrong(){
+        int currentXP = this.xp;
+        this.setXp(currentXP + xp_gain_wrong);
+        checkLevel();
+
+    }
+
+
+    public void checkLevel(){
+        if(this.level > 0) {
+            if (this.xp / this.level == 100 && this.xp % this.level < 5){
+                levelUp();
+            }
+        }
+    }
+
+    public void levelUp(){
+        this.level++;
     }
 
 

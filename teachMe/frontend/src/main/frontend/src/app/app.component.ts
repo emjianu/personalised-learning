@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LessonService} from "../lesson/lesson.service";
+import {User} from "../login/user";
 
 
 @Component({
@@ -14,12 +15,25 @@ export class AppComponent implements OnInit {
 
 
   isVisible: boolean;
+  user: User;
 
+
+
+  loggedIn(): boolean{
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
+
+    if(this.user != null){
+      return true;
+    } else {
+      this.isVisible = false;
+      return false;
+    }
+  }
 
   ngOnInit() {
     this.isVisible = false;
-
     console.log(this.isVisible);
+
   }
 
 
