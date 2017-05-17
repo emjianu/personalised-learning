@@ -105,12 +105,12 @@ public class QuestionPoolingService {
           /*  //dont matter cuz its shuffled
             chosenKI = kis.get(0);*/
 
-            System.out.println(chosenKI);
+
 
 
             //for testing use the first 2 ki
                  // chosenKI = knowledgeItemService.getById((long) 1);
-            KnowledgeItem test2 = knowledgeItemService.getById((long) 2);
+         /*   KnowledgeItem test2 = knowledgeItemService.getById((long) 2);
 
             KnowledgeItem test = knowledgeItemService.getById((long) 1);
 
@@ -124,7 +124,12 @@ public class QuestionPoolingService {
 
             Collections.shuffle(testItems);
 
-            chosenKI = testItems.get(0);
+            chosenKI = testItems.get(0);*/
+
+
+            chosenKI = kis.get(0);
+
+            System.out.println(chosenKI);
         }
 
         //should be return chosen ki;

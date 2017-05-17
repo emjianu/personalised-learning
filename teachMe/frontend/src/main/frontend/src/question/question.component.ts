@@ -69,11 +69,12 @@ export class QuestionComponent implements OnInit {
 
 
   sendAns(): string {
+    this.user = JSON.parse(sessionStorage.getItem("currentUser"));
     console.log(this.question.answer);
     if (!this.question.answer) {
       return;
     }
-    this.questionService.sendAnswer(this.question.id, this.question.lesson.id, this.question.answer, this.question.appliedDifficulty, this.user.id)
+    this.questionService.sendAnswer(this.question.id, this.question.lesson.id, this.question.answer, this.question.appliedDifficulty, this.user.id, this.user.xp, this.user.level)
       .then(result => {
         console.log("received");
         this.answered = true;

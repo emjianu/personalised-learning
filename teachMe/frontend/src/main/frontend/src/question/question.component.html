@@ -9,12 +9,12 @@
     <div *ngIf="question.type == 1">
       <p class="question-type-tag"><span class="glyphicon glyphicon-blackboard"></span> reasoning </p>
     </div>
-    <h2 [innerHTML]="question.questionText" class="text-q"></h2>
+    <h3 [innerHTML]="question.questionText" class="text-q"></h3>
     <div class="choice-container">
       <div *ngFor="let choice of question.currentChoices" class="choice-container">
         <div class="radio">
           <input type="radio" id="choice_q{{choice.id}}" name="choice_q{{question.id}}" value="{{choice.id}}" [(ngModel)]="question.answer"><label
-          [innerHTML]="choice.choiceText" for="choice_q{{choice.id}}"></label>
+          [innerHTML]="choice.choiceText" for="choice_q{{choice.id}}" class="medium-font"></label>
         </div>
 
       </div>

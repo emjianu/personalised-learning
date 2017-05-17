@@ -13,6 +13,10 @@ public class UserAnswer {
 
     private double appliedDifficulty;
 
+    private int xp;
+
+    private int level;
+
 
     public UserAnswer() {
 
@@ -56,5 +60,21 @@ public class UserAnswer {
 
     public void setAppliedDifficulty(double appliedDifficulty) {
         this.appliedDifficulty = appliedDifficulty;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

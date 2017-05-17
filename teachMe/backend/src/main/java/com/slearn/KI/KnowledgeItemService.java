@@ -45,6 +45,19 @@ public class KnowledgeItemService {
         return KIs;
     }
 
+    public List<KnowledgeItem> getAll() {
+
+        List<KnowledgeItem> KIs = new ArrayList<>();
+
+        try {
+            KIs = (List<KnowledgeItem>) knowledgeItemRepository.findAll();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return KIs;
+    }
+
 
     public KnowledgeItem getById(long id) {
         KnowledgeItem ki = null;

@@ -63,3 +63,15 @@
 .no-left-padding{
   padding-left: 0px;
 }
+
+
+.medium-font{
+  font-size: medium;
+}
+
+
+@media only screen and (min-width: 500px){
+  body{
+    padding-top: 30px;
+  }
+}

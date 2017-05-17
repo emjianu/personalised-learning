@@ -1,8 +1,13 @@
 package com.slearn.user;
 
+import com.slearn.KI.KnowledgeItem;
+import com.slearn.KI.KnowledgeItemService;
+import com.slearn.userKnowledge.UserKnowledgeService;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by E-M on 4/22/2017.
@@ -12,6 +17,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserKnowledgeService userKnowledgeService;
+
+    @Autowired
+    private KnowledgeItemService knowledgeItemService;
 
 
     public User getUserById(Long userId) {
@@ -74,6 +85,16 @@ public class UserService {
 
                 user.levelUp();
                 user = userRepository.save(user);
+
+
+                //temporary fix for only 2 lessons
+                List<KnowledgeItem> kis = knowledgeItemService.getAll();
+
+                for(KnowledgeItem ki: kis){
+                    userKnowledgeService.getUserKnByUserAndKI(user, ki);
+                }
+
+
             }
         } catch (Exception ex) {
             ex.printStackTrace();

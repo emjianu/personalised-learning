@@ -5,6 +5,7 @@
 
 .choice-container .radio label{
   padding-left: 0px !important;
+ /* //word-break: break-all;*/
 }
 
 .text-q{

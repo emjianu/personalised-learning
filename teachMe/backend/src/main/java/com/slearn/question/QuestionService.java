@@ -167,7 +167,6 @@ public class QuestionService {
                 uk.setScore(previousScore + q_weight);
             }
 
-            user.addKPForCorrect();
 
         } else {
             //answered incorrectly
@@ -186,9 +185,11 @@ public class QuestionService {
                 System.out.println("should be " + uk.getScore());
             }
 
-            user.addKPForWrong();
 
         }
+
+        user.setXp(userAnswer.getXp());
+        user.setLevel(userAnswer.getLevel());
 
         //update also the total score for theoretical vs reasoning
         updateQuestionTypeScore(user, answeredQuestion, qf, uk);
@@ -324,8 +325,18 @@ public class QuestionService {
         List<Question> allCorrectThQs = questionRepository.getByUserAndKnowledgeItemAndTypeAndAnswer(user.getId(), knowledgeItem.getId(), 0, true);
 
         for(Question wrong: allWrongThQs){
-            if(!allCorrectThQs.contains(wrong)){
+
+
+            long lastWrong = questionActivityService.getLatestID(user,wrong,false);
+
+            long lastCorrect = questionActivityService.getLatestID(user,wrong,true);
+            System.out.println(" 1 LAST WRONG::: "+lastWrong+" LAST CORRECT:: "+lastCorrect);
+
+            if(!allCorrectThQs.contains(wrong) || lastCorrect < lastWrong){
                 allSTILLWrong.add(wrong);
+
+
+                System.out.println("I'M SPECIAL. HI, SPECIAL, I'M TIRED. 1");
             }
         }
 
@@ -345,8 +356,19 @@ public class QuestionService {
         List<Question> allCorrectQs = questionRepository.getByUserAndKnowledgeItemAndAnswer(user.getId(), knowledgeItem.getId(), true);
 
         for(Question wrong: allWrongQs){
-            if(!allCorrectQs.contains(wrong)){
+
+            long lastWrong = questionActivityService.getLatestID(user,wrong,false);
+
+            long lastCorrect = questionActivityService.getLatestID(user,wrong,true);
+
+
+            System.out.println("LAST WRONG::: "+lastWrong+" LAST CORRECT:: "+lastCorrect);
+
+            if(!allCorrectQs.contains(wrong) || lastCorrect < lastWrong){
                 allSTILLWrong.add(wrong);
+
+                System.out.println("I'M SPECIAL. HI, SPECIAL, I'M TIRED.");
+
             }
         }
 

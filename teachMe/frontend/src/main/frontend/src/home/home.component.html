@@ -2,7 +2,7 @@
 
   <div *ngFor="let lesson of lessons">
 
-    <div class="span4" *ngIf="lesson.id == 1">
+    <div class="span4" *ngIf="lesson.id == 1 || lesson.id == 4">
       <div class="icons-box">
  <!--       <i class="ico-ok ico-white circle-color-full big-color">
           &lt;!&ndash;   <span class="glyphicon glyphicon-search"></span>&ndash;&gt;
@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div class="span4" *ngIf="lesson.id != 1">
+    <div class="span4" *ngIf="lesson.id != 1 && lesson.id != 4">
       <div class="icons-box">
         <!--       <i class="ico-ok ico-white circle-color-full big-color">
                  &lt;!&ndash;   <span class="glyphicon glyphicon-search"></span>&ndash;&gt;

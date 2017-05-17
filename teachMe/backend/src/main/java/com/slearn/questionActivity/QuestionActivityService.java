@@ -57,6 +57,20 @@ public class QuestionActivityService {
     }
 
 
+    public long getLatestID(User user, Question question, boolean status){
+        long id = 0;
+        try {
+            id =questionActivityRepository.getHighestDiffByUserAndQuestion(user.getId(), question.getId(), status);
+
+           
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return id;
+    }
+
+
+
     //how many times the user answer this question correctly
     public int getNumberOfAnswerTimesCorrect(User user, Question question){
 
