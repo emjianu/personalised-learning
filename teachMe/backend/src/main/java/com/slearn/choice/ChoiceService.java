@@ -5,7 +5,7 @@ import com.slearn.category.CategoryService;
 import com.slearn.question.Question;
 import com.slearn.question.QuestionRepository;
 import com.slearn.question.QuestionService;
-import com.slearn.test.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

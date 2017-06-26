@@ -2,7 +2,7 @@ package com.slearn.question;
 
 import com.slearn.lesson.Lesson;
 import com.slearn.lesson.LessonService;
-import com.slearn.test.TestService;
+
 import com.slearn.user.User;
 import com.slearn.user.UserService;
 import com.slearn.util.QAMap;
@@ -29,8 +29,6 @@ public class QuestionCtrl {
     @Autowired
     QuestionService questionService;
 
-    @Autowired
-    TestService testService;
 
     @Autowired
     UserService userService;
@@ -41,7 +39,7 @@ public class QuestionCtrl {
     @Autowired
     LessonService lessonService;
 
-    @ResponseBody
+   /* @ResponseBody
     @RequestMapping(value = "/tests/{testid}", method = RequestMethod.GET)
     public List<Question> getTestQuestions(@PathVariable long testid) {
 
@@ -50,12 +48,12 @@ public class QuestionCtrl {
 
 
 
-    /*  Question q = questionService.getParentQuestionById();*/
-  /*  System.out.println("in java ctrl "+q.toString());*/
+    *//*  Question q = questionService.getParentQuestionById();*//*
+  *//*  System.out.println("in java ctrl "+q.toString());*//*
 
         return questions;
     }
-
+*/
     @ResponseBody
     @RequestMapping(value = "lessons/{lessonid}/users/{userid}/question", method = RequestMethod.GET)
     public Question getTestQuestions(@PathVariable long lessonid, @PathVariable long userid) {
@@ -92,7 +90,7 @@ public class QuestionCtrl {
 
 
 
-    @ResponseBody
+/*    @ResponseBody
     @RequestMapping(value = "/tests/{testid}/submit", method = RequestMethod.POST)
     public List<Question> getHelperQuestions(@PathVariable long testid,@RequestBody QAMap answerMap) {
 
@@ -106,11 +104,11 @@ public class QuestionCtrl {
         testService.processAnswers(answerMap.getAnswerMap());
 
 
-    /*  Question q = questionService.getParentQuestionById();*/
-  /*  System.out.println("in java ctrl "+q.toString());*/
+    *//*  Question q = questionService.getParentQuestionById();*//*
+  *//*  System.out.println("in java ctrl "+q.toString());*//*
 
         return questions;
-    }
+    }*/
 
 
 

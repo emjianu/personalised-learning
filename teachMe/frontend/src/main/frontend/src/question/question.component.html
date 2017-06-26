@@ -3,44 +3,59 @@
   <form>
 
     <div *ngIf="question.type == 0">
-      <p class="question-type-tag"><span class="glyphicon glyphicon-book"></span> theory </p>
+
+        <p class="question-type-tag"><span class="glyphicon glyphicon-book light-purple glif-shadow smaller-font"></span><span class="glif-shadow bolder white"> theory </span>  <span class="glyphicon glyphicon-star-empty light-gold glif-shadow smaller-font"></span> <span class="glif-shadow bolder white"> new </span>
+        </p>
+
     </div>
 
     <div *ngIf="question.type == 1">
       <p class="question-type-tag"><span class="glyphicon glyphicon-blackboard"></span> reasoning </p>
     </div>
-    <h3 [innerHTML]="question.questionText" class="text-q"></h3>
+    <h3 [innerHTML]="question.questionText" class="text-q" [style.color]="getTextColor()"></h3>
     <div class="choice-container">
-      <div *ngFor="let choice of question.currentChoices" class="choice-container">
+      <div *ngFor="let choice of question.currentChoices" id="ch_for">
         <div class="radio">
-          <input type="radio" id="choice_q{{choice.id}}" name="choice_q{{question.id}}" value="{{choice.id}}" [(ngModel)]="question.answer"><label
+          <input type="radio" [style.background-color]="getRadioColor()" id="choice_q{{choice.id}}" name="choice_q{{question.id}}" value="{{choice.id}}"
+                 [(ngModel)]="question.answer"><label [style.color]="getColor()" [style.box-shadow]="getSH()"
           [innerHTML]="choice.choiceText" for="choice_q{{choice.id}}" class="medium-font"></label>
         </div>
-
       </div>
 
     </div>
 
+    <!--for="choice_q{{choice.id}}"-->
+
     <div class="text-center small-padding" *ngIf="!answered">
-      <button class="btn btn-inverse" (click)="sendAns();" >Submit</button>
+      <button class="btn btn-inverse" (click)="sendAns();">Submit</button>
     </div>
+
+
   </form>
 
 
   <div class="text-center small-padding">
     <div *ngIf="answered">
-      <div [innerHTML]="str" class="row large-font"></div>
-      <br>
+
+      <div class="text-center small-padding" *ngIf="answered && correct">
+     <h4 class="correct-green bolder">CORRECT <span class="glyphicon glyphicon-ok glif-shadow smaller-font correct-lightgreen"></span></h4>
+    </div>
+
+    <div class="text-center small-padding" *ngIf="answered && !correct">
+      <h5 class="incorrect-red bolder ">INCORRECT </h5><span class=" glyphicon glyphicon-comment glif-shadow incorrect-lightred"></span>  <span class="larger-font incorrect-red" >Keep practicing!</span>
+
+    </div>
+
+     <!-- <div [innerHTML]="str" class="row large-font"></div>-->
+     <!-- <br>-->
       <div class="row">
-        <div class="col-xs-3 col-sm-3"></div>
-        <div class=" col-xs-3 col-sm-3">
+        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
           <button (click)="getQuestion();" class="btn btn-inverse">NEXT</button>
         </div>
-        <div class="col-xs-3 col-sm-3">
-          <a [routerLink]="['/home']" class="btn btn-default" role="button">End Test</a>
+        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+          <a [routerLink]="['/home']" class="btn btn-primary" role="button">Finish Training</a>
         </div>
 
-        <div class="col-xs-3 col-sm-3"></div>
 
       </div>
 
@@ -48,20 +63,20 @@
   </div>
 
 
- <!-- <hr/>
-  <p>Your Current Ability: <strong>{{question.currentAbility}}</strong></p>
-  <p>Current Applied Difficulty: <strong>{{question.appliedDifficulty}}</strong></p>
+  <!-- <hr/>
+   <p>Your Current Ability: <strong>{{question.currentAbility}}</strong></p>
+   <p>Current Applied Difficulty: <strong>{{question.appliedDifficulty}}</strong></p>
 
-  <p>Answered before: <strong><span *ngIf="question.answeredBefore">YES</span>
-    <span *ngIf="!question.answeredBefore">NO</span>
-  </strong></p>
-  <p>Last Answered: <strong><span *ngIf="question.latestStatus">CORRECT</span>
-    <span *ngIf="!question.latestStatus">WRONG</span>
-  </strong></p>
-  <p>Total Previous Answers: <strong>{{question.noOfPreviousAnswers}}</strong></p>
-  <p>CORRECT Previous Answers: <strong>{{question.noOfPreviousCorrectAnswers}}</strong></p>
-  <p>INCORRECT Previous Answers: <strong>{{question.noOfPreviousWrongAnswers}}</strong></p>
-  <p>Last Applied Difficulty: <strong>{{question.lastPrevAppDiff}}</strong></p>
--->
+   <p>Answered before: <strong><span *ngIf="question.answeredBefore">YES</span>
+     <span *ngIf="!question.answeredBefore">NO</span>
+   </strong></p>
+   <p>Last Answered: <strong><span *ngIf="question.latestStatus">CORRECT</span>
+     <span *ngIf="!question.latestStatus">WRONG</span>
+   </strong></p>
+   <p>Total Previous Answers: <strong>{{question.noOfPreviousAnswers}}</strong></p>
+   <p>CORRECT Previous Answers: <strong>{{question.noOfPreviousCorrectAnswers}}</strong></p>
+   <p>INCORRECT Previous Answers: <strong>{{question.noOfPreviousWrongAnswers}}</strong></p>
+   <p>Last Applied Difficulty: <strong>{{question.lastPrevAppDiff}}</strong></p>
+ -->
 
 </div>

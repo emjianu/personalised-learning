@@ -44,7 +44,9 @@
 #page-content-wrapper {
     width: 100%;
     position: absolute;
-    padding: 60px 15px 15px 15px;
+    padding: 60px 15px 15px 5px;
+    height: 100%;
+    background-color: #F6F5F5;
 }
 
 #wrapper.toggled #page-content-wrapper {

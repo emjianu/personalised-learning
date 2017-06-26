@@ -14,5 +14,8 @@ export class User {
   level: number;
   rank: Rank;
 
+  xpTilLvl: number;
+  sessionXp: number;
+
 
 }

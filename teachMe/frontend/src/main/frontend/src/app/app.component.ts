@@ -35,6 +35,10 @@ export class AppComponent implements OnInit {
     console.log(this.isVisible);
 
   }
+/*
+  onAnswer(user: User) {
+    agreed ? this.agreed++ : this.disagreed++;
+  }*/
 
 
   /*

@@ -30,8 +30,8 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: "Boogaloo" !important;
-	font-weight: normal !important;
+  font-family: 'Nunito Sans', sans-serif !important;
+	font-weight: 700 !important;
 	color: #666;
 	margin: 0;
 	padding: 0;
@@ -93,7 +93,7 @@ header {
 .navbar-inner,
 .nav {
 	float: right;
-	background: #fff !important;
+/*	background: #fff !important;*/
 	border: none;
 	-webkit-box-shadow: none;
      -moz-box-shadow: none;
@@ -1305,18 +1305,28 @@ form#newsletter input[type=submit] {
 .btn {
   border-color: #c5c5c5;
   border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+  width: 100%;
+  font-size: 20px;
+  padding: 2px 18px;
+  border-radius: 1px;
 }
 
 .btn-primary {
-  background-color: #006dcc;
+/*  background-color: #006dcc;*/
   color: #ffffff;
-  background-image: -moz-linear-gradient(top, #89c236, #89c236);
+/*  background-image: -moz-linear-gradient(top, #89c236, #89c236);
   background-image: -ms-linear-gradient(top, #89c236, #89c236);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#89c236), to(#89c236));
   background-image: -webkit-linear-gradient(top, #89c236, #89c236);
   background-image: -o-linear-gradient(top, #89c236, #89c236);
-  background-image: linear-gradient(top, #89c236, #89c236);
-  background-repeat: repeat-x;
+  background-image: linear-gradient(top, #89c236, #89c236);*/
+
+  background-color: #BFB3CB;
+
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.29);
+  font-weight: 600;
+  /*background-repeat: repeat-x;*/
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#'89c236, endColorstr='#'89c236, GradientType=0);
   border-color: #0044cc #0044cc #002a80;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
@@ -1450,16 +1460,22 @@ form#newsletter input[type=submit] {
 
 .btn-inverse {
   color: #ffffff;
-  background-color: #363636;
+  /*background-color: #363636;*/
+  font-family: 'Nunito Sans', sans-serif;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  background-color: #583973;
+
+  box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.29);
   *background-color: #222222;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#444444), to(#222222));
+  font-weight: 700;
+/*  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#444444), to(#222222));
   background-image: -webkit-linear-gradient(top, #444444, #222222);
   background-image: -o-linear-gradient(top, #444444, #222222);
   background-image: linear-gradient(to bottom, #444444, #222222);
   background-image: -moz-linear-gradient(top, #444444, #222222);
-  background-repeat: repeat-x;
-  border-color: #222222 #222222 #000000;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  background-repeat: repeat-x;*/
+  /*border-color: #222222 #222222 #000000;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);*/
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff444444', endColorstr='#ff222222', GradientType=0);
   filter: progid:dximagetransform.microsoft.gradient(enabled=false);
 }
@@ -1567,5 +1583,54 @@ a, a:active, a:focus, a:hover{
 }
 
 #nav-menu{
-  background-color: #1E0246 !important;
+  background-color: #583973 !important;
+}
+
+/*
+$DarkBrown: #292321;
+
+$Orange: #CC3300;*/
+
+div {
+  margin:0 0 0.75em 0;
+}
+
+#ch_for .radio input[type="radio"] {
+  display:none;
+  -webkit-appearance: none;
+}
+label {
+  color: #292321;
+  /*font-family:Arial, sans-serif;*/
+  font-size:14px;
+}
+#ch_for .radio input[type="radio"] {
+  display:inline-block;
+  width:19px;
+  height:19px;
+ /* margin:-1px 4px 0 0;*/
+  vertical-align:middle;
+  cursor:pointer;
+  -moz-border-radius:  50%;
+  border-radius:  50%;
+}
+
+#ch_for .radio input[type="radio"]  {
+  background-color:lightgrey;
+}
+
+#ch_for .radio input[type="radio"]:checked {
+  background-color:black;
+}
+
+#ch_for .radio input[type="radio"] ,
+#ch_for .radio input[type="radio"]:checked {
+  -webkit-transition:background-color 0.4s linear;
+  -o-transition:background-color 0.4s linear;
+  -moz-transition:background-color 0.4s linear;
+  transition:background-color 0.4s linear;
+
+  -webkit-box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.29);
+  -moz-box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.29);
+  box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.29);
 }

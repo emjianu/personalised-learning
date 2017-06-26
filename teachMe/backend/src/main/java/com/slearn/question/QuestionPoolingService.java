@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -42,6 +43,10 @@ public class QuestionPoolingService {
     private double reasoning_threshold;
 
     private double extra_difficulty;
+    double diff_increase_ratio = 2;
+
+    double diff_decrease_ratio = (double) 1 / 2;
+
 
     //get the next question based on the lesson you are testing, the current user and the question number
     // for this particular testing session
@@ -52,18 +57,89 @@ public class QuestionPoolingService {
         extra_difficulty = 0.3;
 
         //should KIs have an order?
+        double low =0;
+        double new_difficulty = 0;
 
-        //step one: get a random KI from the set {0,.., current, next}
-        KnowledgeItem chosenKi = getNextRandomKI(user, lesson);
-
-        UserKnowledge uk = userKnowledgeService.getUserKnByUserAndKI(user, chosenKi);
-
-        double ability = uk.getScore();
 
         Question theChosenOne = null;
 
+        //this shouldn't be more than 2 at all times
+        ArrayList<Question> allWrongCurrently = (ArrayList<Question>) questionService.getAllGENERALCurrentlySTILLWrongQuestions(user, lesson);
+
+        int currentWrong = allWrongCurrently.size();
+
+        if(currentWrong == 2){
+
+          //  theChosenOne = questionService.getOldestWrongQForUserAndLesson(user, lesson);
+
+           /* List<Question> list = getCustomObjectList();*/
+
+            //Collections.sort(allWrongCurrently, (left, right) -> left.getId() - right.getId());
+            allWrongCurrently.sort(Comparator.comparingLong(Question::getId));
+            System.out.println(allWrongCurrently);
+
+            theChosenOne = allWrongCurrently.get(0);
+
+            System.out.println(theChosenOne.toString());
+            System.out.println("2 WRONG");
+
+            low = questionActivityService.getLatestDiffAppliedForWrong(user, theChosenOne);
+
+            System.out.println("chosen :: " + theChosenOne.toString());
+
+            System.out.println("low :: " + low);
+
+
+            //apply about 1/2 of the lowest difficulty previously applied
+             new_difficulty = low * diff_decrease_ratio;
+            System.out.println(new_difficulty);
+
+            choiceService.getChoicesForQuestion(new_difficulty, theChosenOne);
+            theChosenOne.setAppliedDifficulty(new_difficulty);
+
+        } else if(currentWrong == 1) {
+
+            long id = questionActivityService.getLatestQForUser(user); //latest question answered
+            //Question q = questionService.getOldestWrongQForUser(user);
+
+
+
+            Question q = allWrongCurrently.get(0);
+            long wrongQid = questionActivityService.getLatestForUserAndQ(user, q);
+
+            System.out.println("?????????? id "+id+" ==== "+wrongQid);
+
+            if(id > wrongQid){
+                theChosenOne = q;
+                System.out.println("ONE WRONG");
+                System.out.println(theChosenOne.toString());
+                //setDisplayInfo(theChosenOne, user, true, high, true, ability);
+
+                low = questionActivityService.getLatestDiffAppliedForWrong(user, theChosenOne);
+
+                System.out.println("chosen :: " + theChosenOne.toString());
+
+                System.out.println("low :: " + low);
+
+
+                //apply about 1/2 of the lowest difficulty previously applied
+                new_difficulty = low * diff_decrease_ratio;
+                System.out.println(new_difficulty);
+
+                choiceService.getChoicesForQuestion(new_difficulty, theChosenOne);
+                theChosenOne.setAppliedDifficulty(new_difficulty);
+         } else {
+                System.out.println("LAST ONE WAS WRONG");
+                theChosenOne = getRandomNewQuestion(user, lesson);
+            }
+
+        } else {
+          theChosenOne = getRandomNewQuestion(user, lesson);
+        }
+
         //if theoretical ability for this KI is greater than 3.5, user is ready for reasoning questions
         //if no more th questions, start asking reasoning with low diff
+/*
         if (ability > reasoning_threshold) {
             System.out.println("reasoning much?");
             theChosenOne = getRandomQuestionIncludingReasoning(user, chosenKi, ability);
@@ -73,9 +149,32 @@ public class QuestionPoolingService {
             //otherwise, just give him more theory questions
             theChosenOne = getRandomTheoreticalQuestion(user, chosenKi, ability);
         }
+*/
 
 
         return theChosenOne;
+    }
+
+    public Question getRandomNewQuestion(User user, Lesson lesson){
+
+        Question chosen = null;
+
+        //step one: get a random KI from the set {0,.., current, next}
+        KnowledgeItem chosenKi = getNextRandomKI(user, lesson);
+
+        UserKnowledge uk = userKnowledgeService.getUserKnByUserAndKI(user, chosenKi);
+
+        double ability = uk.getScore();
+
+        if (ability > reasoning_threshold) {
+            chosen =  getRandomQuestionIncludingReasoning(user, chosenKi, ability);
+        } else if (ability <= reasoning_threshold) {
+            //otherwise, just give him more theory questions
+            chosen = getRandomTheoreticalQuestion(user, chosenKi, ability);
+        }
+
+        return chosen;
+
     }
 
     public KnowledgeItem getNextRandomKI(User user, Lesson lesson) {
@@ -160,17 +259,20 @@ public class QuestionPoolingService {
             theChosenOne = nonAnswered.get(0);
 
             //apply difficulty with an extra
-            if (ability <= (5 - extra_difficulty)) {
+            applyChoices(ability, theChosenOne);
+
+
+           /* if (ability <= (5 - extra_difficulty)) {
                 choiceService.getChoicesForQuestion(ability + extra_difficulty, theChosenOne);
                 theChosenOne.setAppliedDifficulty(ability + extra_difficulty);
             } else {
                 choiceService.getChoicesForQuestion(ability, theChosenOne);
                 theChosenOne.setAppliedDifficulty(ability);
-            }
+            }*/
 
             setDisplayInfo(theChosenOne, user, false, 0, false, ability);
 
-        } else {
+        } /*else {
 
             System.out.println("I WILL BE TH ANS WRONG");
 
@@ -200,15 +302,16 @@ public class QuestionPoolingService {
 
                 //for display thingies
                 //im so tired.
-         /*       theChosenOne.setAnsweredBefore(true);
+         *//*       theChosenOne.setAnsweredBefore(true);
                 theChosenOne.setLastPrevAppDiff(low);
                 theChosenOne.setLatestStatus(false);
-*/
+*//*
 
 
                 setDisplayInfo(theChosenOne, user, true, low, false, ability);
 
-            } else {
+            } */
+            else {
 
 
                 System.out.println("I WILL BE TH ANS CORRECT");
@@ -242,7 +345,7 @@ public class QuestionPoolingService {
                 setDisplayInfo(theChosenOne, user, true, high, true, ability);
 
 
-            }
+
 
 
         }
@@ -279,21 +382,24 @@ public class QuestionPoolingService {
             theChosenOne = nonAnswered.get(0);
 
             //apply difficulty with an extra
-            if (ability <= (5 - extra_difficulty)) {
+            applyChoices(ability, theChosenOne);
+
+
+   /*         if (ability <= (5 - extra_difficulty)) {
                 choiceService.getChoicesForQuestion(ability + extra_difficulty, theChosenOne);
                 theChosenOne.setAppliedDifficulty(ability + extra_difficulty);
             } else {
                 choiceService.getChoicesForQuestion(ability, theChosenOne);
                 theChosenOne.setAppliedDifficulty(ability);
             }
-
+*/
             setDisplayInfo(theChosenOne, user, false, 0, false, ability);
 
-        } else if (nonAnswered.size() == 0) {
+        } /*else if (nonAnswered.size() == 0) {
 
             System.out.println("I WILL BE ANY ANS WRONG!!!!");
 
-            double diff_increase_ratio = 2;
+
 
             //from all the questions, get first the ones he got wrong, and offer them with easier difficulty!!
             //then, ultimately, offer the questions he answered correctly but with much greater difficulty
@@ -322,7 +428,8 @@ public class QuestionPoolingService {
 
                 setDisplayInfo(theChosenOne, user, true, low, false, ability);
 
-            } else {
+            }*/
+            else {
 
                 System.out.println("I WILL BE ANY ANS CORRECT!!!!");
                 List<Question> allCorrectQs = questionService.getAllCorrectQuestions(user, ki);
@@ -351,7 +458,7 @@ public class QuestionPoolingService {
                 theChosenOne.setLatestStatus(true);*/
 
                 setDisplayInfo(theChosenOne, user, true, high, true, ability);
-            }
+
 
         }
 
@@ -372,6 +479,16 @@ public class QuestionPoolingService {
         }*/
 
         return theChosenOne;
+    }
+
+    public void applyChoices(double ability, Question question){
+        if (ability <= (5 - extra_difficulty)) {
+            choiceService.getChoicesForQuestion(ability + extra_difficulty, question);
+            question.setAppliedDifficulty(ability + extra_difficulty);
+        } else {
+            choiceService.getChoicesForQuestion(ability, question);
+            question.setAppliedDifficulty(ability);
+        }
     }
 
     public void setDisplayInfo(Question q, User user, boolean ansBefore, double diff, boolean latestStatus, double ability) {

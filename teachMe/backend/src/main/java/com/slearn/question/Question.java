@@ -6,8 +6,7 @@ import com.slearn.category.Category;
 import com.slearn.choice.Choice;
 import com.slearn.lesson.Lesson;
 import com.slearn.questionActivity.QuestionActivity;
-import com.slearn.questionTags.QuestionTag;
-import com.slearn.test.Test;
+
 
 
 import javax.persistence.*;
@@ -39,10 +38,6 @@ public class Question {
     private Collection<Choice> answerChoices;
 
 
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
-    private Collection<QuestionTag> tags;
 
     @JsonIgnore
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
@@ -165,13 +160,6 @@ public class Question {
         this.answerChoices = answerChoices;
     }
 
-    public Collection<QuestionTag> getTags() {
-        return tags;
-    }
-
-    public void setTags(Collection<QuestionTag> tags) {
-        this.tags = tags;
-    }
 
 
     /*    public Set<Choice> getCurrentChoices() {

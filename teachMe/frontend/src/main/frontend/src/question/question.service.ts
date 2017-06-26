@@ -4,6 +4,7 @@ import {Question} from "./question";
 import {Observable} from "rxjs";
 import {QuestionFeedback} from "./questionFeedback";
 import {User} from "../login/user";
+import {Stats} from "./stats";
 /**
  * Created by E-M on 4/17/2017.
  */
@@ -100,7 +101,7 @@ export class QuestionService {
 
     let prevXp = this.user.xp;
     this.user.xp = prevXp + 10;
-
+  this.user.sessionXp += 10;
     this.checkLevel();
 
   }
@@ -109,20 +110,40 @@ export class QuestionService {
 
     let prevXp = this.user.xp;
     this.user.xp = prevXp + 5;
+    this.user.sessionXp += 5;
     this.checkLevel();
 
   }
 
-  checkLevel(): void {
+ /* checkLevel(): void {
     if (this.user.xp % 100 <= 5) {
       this.levelUp();
     }
+  }*/
+  checkLevel(): void {
+    var XP = this.user.xp;
+    var lvl_ratio = 1/3;
+
+    this.user.level = (Math.round(lvl_ratio*Math.sqrt(XP)));
+    console.log("XP: "+XP+" lvl: "+this.user.level);
+   /* if(1/2*Math.sqrt(XP) == this.user.level +1){
+      this.levelUp();
+    }*/
+  }
+
+  getXptilNext(): void {
+    var nextlvlxp = (Math.round((3*(this.user.level+0.5))^2));
+
+    this.user.xpTilLvl = nextlvlxp - this.user.xp;
+
   }
 
 
   levelUp(): void {
     this.user.level++;
   }
+
+
 
 
 }

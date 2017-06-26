@@ -36,7 +36,7 @@
 
 
       <div class="text-center">
-        <button class="btn btn-default" (click)="login()" [disabled]="!loginform.form.valid">Login</button>
+        <button class="btn btn-inverse" (click)="login()" [disabled]="!loginform.form.valid">Login</button>
 
       </div>
 
@@ -46,7 +46,7 @@
 
     <div class="text-center padding-md-top">
       <p>Don't have an account?</p>
-      <a [routerLink]="['/register']" class="btn btn-inverse" role="button">Register</a>
+      <a [routerLink]="['/register']" class="btn btn-primary" role="button">Register</a>
 
     </div>
 

@@ -5,11 +5,10 @@ import com.slearn.category.Category;
 import com.slearn.category.CategoryService;
 import com.slearn.choice.Choice;
 import com.slearn.choice.ChoiceService;
+import com.slearn.lesson.Lesson;
 import com.slearn.questionActivity.QuestionActivity;
 import com.slearn.questionActivity.QuestionActivityService;
-import com.slearn.test.Test;
-import com.slearn.test.TestRepository;
-import com.slearn.test.TestService;
+
 import com.slearn.user.User;
 import com.slearn.user.UserService;
 import com.slearn.userKnowledge.UserKnowledge;
@@ -34,9 +33,9 @@ public class QuestionService {
     @Autowired
     QuestionRepository questionRepository;
 
-
+/*
     @Autowired
-    TestService testService;
+    TestService testService;*/
 
     @Autowired
     ChoiceService choiceService;
@@ -60,14 +59,14 @@ public class QuestionService {
     private double q_type_weight = 0.2;
 
 
-    public List<Question> getQuestionsForTest(long testId) {
+  /*  public List<Question> getQuestionsForTest(long testId) {
         List<Question> questions = null;
 
         try {
 
             Test t = testService.getTestById(testId);
 
-       /*     questions = questionRepository.findByTest(t);*/
+       *//*     questions = questionRepository.findByTest(t);*//*
             double diff = 2.4;
 
             System.out.println("qq " + questions.toString());
@@ -75,7 +74,7 @@ public class QuestionService {
             for (Question q : questions) {
                 choiceService.getChoicesForQuestion(diff, q);
 
-            /*    System.out.println(q.getCurrentChoices().toString());*/
+            *//*    System.out.println(q.getCurrentChoices().toString());*//*
             }
 
         } catch (Exception ex) {
@@ -85,7 +84,7 @@ public class QuestionService {
         return questions;
 
     }
-
+*/
 
     public Question getQuestionById(long questionId) {
         Question question = null;
@@ -294,6 +293,31 @@ public class QuestionService {
         return allCorrectThQs;
     }
 
+    public List<Question> getAllWrongQuestionsForUser(User user) {
+
+        List<Question> allWrongQs = questionRepository.getByUserAndAnswer(user.getId(), false);
+
+        System.out.println(allWrongQs.toString());
+
+        return allWrongQs;
+    }
+
+    public int getNumberOfWrongQuestionsForUser(User user) {
+
+        List<Question> allWrongQs = questionRepository.getByUserAndAnswer(user.getId(), false);
+
+        System.out.println(allWrongQs.toString());
+
+        return allWrongQs.size();
+    }
+
+
+
+
+
+
+
+
 
     public List<Question> getAllCorrectQuestions(User user, KnowledgeItem knowledgeItem) {
 
@@ -360,6 +384,42 @@ public class QuestionService {
             long lastWrong = questionActivityService.getLatestID(user,wrong,false);
 
             long lastCorrect = questionActivityService.getLatestID(user,wrong,true);
+
+
+            System.out.println("LAST WRONG::: "+lastWrong+" LAST CORRECT:: "+lastCorrect);
+
+            if(!allCorrectQs.contains(wrong) || lastCorrect < lastWrong){
+                allSTILLWrong.add(wrong);
+
+                System.out.println("I'M SPECIAL. HI, SPECIAL, I'M TIRED.");
+
+            }
+        }
+
+        System.out.println(allWrongQs.toString());
+
+        return allSTILLWrong;
+    }
+
+    public List<Question> getAllGENERALCurrentlySTILLWrongQuestions(User user, Lesson lesson) {
+
+        List<Question> allSTILLWrong = new ArrayList<>();
+
+        List<Question> allWrongQs = questionRepository.getByUserAndLessonAndAnswer(user.getId(), lesson.getId(), false);
+        List<Question> allCorrectQs = questionRepository.getByUserAndLessonAndAnswer(user.getId(), lesson.getId(), true);
+
+        System.out.println(allWrongQs.toString());
+
+        System.out.println(allCorrectQs.toString());
+
+        for(Question wrong: allWrongQs){
+
+            long lastWrong = questionActivityService.getLatestID(user,wrong,false);
+
+            System.out.println("LAST WRONG::: "+lastWrong);
+            long lastCorrect = questionActivityService.getLatestID(user,wrong,true);
+
+            System.out.println("LAST C::: "+lastCorrect);
 
 
             System.out.println("LAST WRONG::: "+lastWrong+" LAST CORRECT:: "+lastCorrect);

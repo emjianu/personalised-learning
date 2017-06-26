@@ -1,6 +1,8 @@
 package com.slearn.questionActivity;
 
+import com.slearn.lesson.Lesson;
 import com.slearn.question.Question;
+import com.slearn.question.QuestionRepository;
 import com.slearn.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ public class QuestionActivityService {
 
     @Autowired
     private QuestionActivityRepository questionActivityRepository;
+
+    @Autowired
+    private QuestionRepository questionRepository;
 
     public QuestionActivity addQuestionActivity(QuestionActivity qa){
 
@@ -59,16 +64,57 @@ public class QuestionActivityService {
 
     public long getLatestID(User user, Question question, boolean status){
         long id = 0;
-        try {
-            id =questionActivityRepository.getHighestDiffByUserAndQuestion(user.getId(), question.getId(), status);
+        System.out.println("for q "+ question.getQuestionText()+" "+status);
 
-           
+        try {
+
+
+                id = questionActivityRepository.getHighestDiffByUserAndQuestion(user.getId(), question.getId(), status);
+
+
+
+
         } catch(Exception ex){
             ex.printStackTrace();
         }
         return id;
     }
 
+
+    public long getLatestQForUser(User user) {
+
+        long id = questionActivityRepository.getLatestByUser(user.getId());
+        return id;
+    }
+
+
+    public Question getOldestWrongQForUserAndLesson(User user, Lesson lesson) {
+
+        long id = questionActivityRepository.getOldestByUserAndLessonAndAnswer(user.getId(),lesson.getId(), false);
+
+        Question q = questionRepository.findOne(id);
+
+        return q;
+    }
+
+
+    public Question getOldestWrongQForUser(User user) {
+
+        long id = questionActivityRepository.getOldestByUserAndAnswer(user.getId(), false);
+
+        Question q = questionRepository.findOne(id);
+
+        return q;
+    }
+
+
+
+    public long getLatestForUserAndQ(User user, Question question) {
+
+        long id = questionActivityRepository.getLatestByUserAndQuestion(user.getId(), question.getId());
+
+        return id;
+    }
 
 
     //how many times the user answer this question correctly
