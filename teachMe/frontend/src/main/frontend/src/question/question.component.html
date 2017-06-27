@@ -4,20 +4,21 @@
 
     <div *ngIf="question.type == 0">
 
-        <p class="question-type-tag"><span class="glyphicon glyphicon-book light-purple glif-shadow smaller-font"></span><span class="glif-shadow bolder white"> theory </span>  <span class="glyphicon glyphicon-star-empty light-gold glif-shadow smaller-font"></span> <span class="glif-shadow bolder white"> new </span>
+        <p class="question-type-tag"><span class="glyphicon glyphicon-book light-purple glif-shadow smaller-font"></span><span class="black bolder  spacing"> theory </span>  <span *ngIf="question.answeredBefore == false" class="glyphicon glyphicon-star-empty light-gold glif-shadow smaller-font"></span> <span *ngIf="question.answeredBefore == false" class="black bolder spacing"> new </span> <span *ngIf="question.answeredBefore == true" class="glyphicon glyphicon-star glif-shadow smaller-font" [style.color]="getStarColor()"></span> <span *ngIf="question.answeredBefore == true" class="black bolder spacing"> seen </span><span *ngIf="question.answeredBefore == true && question.latestStatus == true" class="glyphicon glyphicon-arrow-up glif-shadow smaller-font" [style.color]="getStarColor()"></span><span *ngIf="question.answeredBefore == true && question.latestStatus == false" class="glyphicon glyphicon-arrow-down glif-shadow smaller-font" [style.color]="getStarColor()"></span><span *ngIf="question.answeredBefore == true" class="black bolder"> difficulty </span>
         </p>
 
     </div>
 
     <div *ngIf="question.type == 1">
-      <p class="question-type-tag"><span class="glyphicon glyphicon-blackboard"></span> reasoning </p>
+      <p class="question-type-tag"><span class="glyphicon glyphicon-blackboard black smaller-font"></span><span class="black bolder spacing"> reasoning </span><span *ngIf="question.answeredBefore == false" class="glyphicon glyphicon-star-empty light-gold glif-shadow smaller-font"></span> <span *ngIf="question.answeredBefore == false" class="black bolder spacing"> new </span> <span *ngIf="question.answeredBefore == true" class="glyphicon glyphicon-star glif-shadow smaller-font" [style.color]="getStarColor()"></span> <span *ngIf="question.answeredBefore == true" class="black bolder spacing"> seen </span><span *ngIf="question.answeredBefore == true && question.latestStatus == true" class="glyphicon glyphicon-arrow-up glif-shadow smaller-font" [style.color]="getStarColor()"></span><span *ngIf="question.answeredBefore == true && question.latestStatus == false" class="glyphicon glyphicon-arrow-down glif-shadow smaller-font" [style.color]="getStarColor()"></span><span *ngIf="question.answeredBefore == true" class="black bolder"> difficulty </span>
+      </p>
     </div>
     <h3 [innerHTML]="question.questionText" class="text-q" [style.color]="getTextColor()"></h3>
     <div class="choice-container">
       <div *ngFor="let choice of question.currentChoices" id="ch_for">
         <div class="radio">
-          <input type="radio" [style.background-color]="getRadioColor()" id="choice_q{{choice.id}}" name="choice_q{{question.id}}" value="{{choice.id}}"
-                 [(ngModel)]="question.answer"><label [style.color]="getColor()" [style.box-shadow]="getSH()"
+          <input type="radio" [style.background-color]="getRadioColor()" [style.box-shadow]="getSH()" id="choice_q{{choice.id}}" name="choice_q{{question.id}}" value="{{choice.id}}"
+                 [(ngModel)]="question.answer"><label [style.color]="getColor()"
           [innerHTML]="choice.choiceText" for="choice_q{{choice.id}}" class="medium-font"></label>
         </div>
       </div>

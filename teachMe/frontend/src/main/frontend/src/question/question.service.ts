@@ -95,6 +95,8 @@ export class QuestionService {
     } else {
       this.addXPWrong();
     }
+    this.getXptilNext();
+
   }
 
   addXPCorrect(): void {
@@ -132,8 +134,10 @@ export class QuestionService {
   }
 
   getXptilNext(): void {
-    var nextlvlxp = (Math.round((3*(this.user.level+0.5))^2));
-
+    var nextlvlxp = (Math.round(Math.pow((3*(this.user.level+0.5)), 2)));
+    console.log((3*(this.user.level+0.5))^2);
+    console.log(nextlvlxp);
+    console.log(this.user.xp);
     this.user.xpTilLvl = nextlvlxp - this.user.xp;
 
   }

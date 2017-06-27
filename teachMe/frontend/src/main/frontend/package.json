@@ -41,6 +41,8 @@
     "protractor": "~5.1.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
-    "typescript": "~2.2.0"
+    "typescript": "~2.2.0",
+    "bootstrap-material-design": "~0.5.10",
+    "arrive": "~2.3.1"
   }
 }

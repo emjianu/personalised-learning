@@ -3,24 +3,25 @@
 <ul class="sidebar-nav white">
 
   <li class="sidebar-brand">
-    <a [routerLink]="['/home']">Home</a>
-  </li>
-  <hr class="no-bottom-margin no-top-margin grey">
-  <li class="sidebar-brand">
+
     <span class="username">{{user.username}}</span>
   </li>
+  <hr class="no-bottom-margin no-top-margin white">
+
   <li>
-    <span><strong class="lighter-color">XP</strong>  {{user.xp}}</span>
+    <span class="larger"><strong >XP until next Level: </strong></span> <span class="font-20"><strong>{{user.xpTilLvl}}</strong></span>
   </li>
 
   <li>
-    <span class="lighter-color">Level {{user.level}}</span>
-
+    <span class="larger">Rank: {{user.rank}}</span>
   </li>
 
-  <hr class="no-bottom-margin no-top-margin grey">
+  <hr class="no-bottom-margin no-top-margin white">
+  <li class="sidebar-brand">
+    <a [routerLink]="['/home']" class="white">Home</a>
+  </li>
 <li>
-    <input type="button" class="btn side-btn no-left-padding" (click)="logout();" value="Logout">
+    <input type="button" class="btn side-btn no-left-padding lighter-color" (click)="logout();" value="Logout">
   </li>
 <!--  <li>
     <a href="#">Overview</a>

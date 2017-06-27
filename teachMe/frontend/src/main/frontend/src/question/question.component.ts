@@ -12,6 +12,7 @@ import {Question} from "./question";
 import {QuestionService} from "./question.service";
 import {Lesson} from "../lesson/lesson";
 import {User} from "../login/user";
+import {SharedService} from "../app/SharedService";
 
 
 @Component({
@@ -35,11 +36,12 @@ export class QuestionComponent implements OnInit {
 
   str: string;
 
-  @Output() onAnswer = new EventEmitter<User>();
+  @Output() onQuestion = new EventEmitter<string>();
 
   constructor(private questionService: QuestionService,
               private route: ActivatedRoute,
-              private location: Location) {
+              private location: Location,
+              private sharedService: SharedService) {
   }
 
   ngOnInit(): void {
@@ -73,6 +75,10 @@ export class QuestionComponent implements OnInit {
         console.log(question)
         console.log(question.currentChoices)
         this.question = question;
+        console.log("emit?");
+        //this.onQuestion.emit("xxxxxxx");
+        this.sharedService.emitChange(this.question);
+        console.log("emitted");
       });
   }
 
@@ -96,14 +102,11 @@ export class QuestionComponent implements OnInit {
           this.sessionScore += 10;
           this.str = '<span class="correct">CORRECT </strong></span>';
 
-
-
-          this.onAnswer.emit(this.user);
         } else {
           this.correct = false;
           console.log("was incorrect")
           this.sessionScore += 5;
-          this.onAnswer.emit(this.user);
+
           this.str = '<span class="error">INCORRECT!</strong></span>';
         }
         console.log(result)
@@ -116,6 +119,14 @@ export class QuestionComponent implements OnInit {
       return "black";
     } else {
       return "lightgray";
+    }
+  }
+
+  getStarColor() {
+    if(this.question.latestStatus) {
+      return "#a8b3f1";
+    } else {
+      return "#CC9C9C";
     }
   }
 

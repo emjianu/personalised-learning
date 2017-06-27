@@ -11,6 +11,7 @@ import {QuestionComponent} from "../question/question.component";
 import {LoginComponent} from "../login/login.component";
 import {RegisterComponent} from "../register/register.component";
 import {SideMenuComponent} from "../sidemenu/sidemenu.component";
+import {SharedService} from "./SharedService";
 
 
 
@@ -47,7 +48,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

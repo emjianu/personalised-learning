@@ -97,6 +97,8 @@ public class QuestionPoolingService {
             choiceService.getChoicesForQuestion(new_difficulty, theChosenOne);
             theChosenOne.setAppliedDifficulty(new_difficulty);
 
+            setDisplayInfo(theChosenOne, user, true, low, false, 0);
+
         } else if(currentWrong == 1) {
 
             long id = questionActivityService.getLatestQForUser(user); //latest question answered
@@ -128,6 +130,9 @@ public class QuestionPoolingService {
 
                 choiceService.getChoicesForQuestion(new_difficulty, theChosenOne);
                 theChosenOne.setAppliedDifficulty(new_difficulty);
+
+                setDisplayInfo(theChosenOne, user, true, low, false, 0);
+
          } else {
                 System.out.println("LAST ONE WAS WRONG");
                 theChosenOne = getRandomNewQuestion(user, lesson);

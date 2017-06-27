@@ -1,5 +1,5 @@
 <!-- Page Content -->
-<div id="page-content-wrapper">
+<div id="page-content-wrapper" [style.background-color]="color" >
   <div class="container-fluid">
 
     <div id="wrapper" [class.toggled]="isVisible">
@@ -30,7 +30,7 @@
     </nav>
 
     <div class="inner-container">
-      <router-outlet>
+      <router-outlet >
       </router-outlet>
 
     </div>
