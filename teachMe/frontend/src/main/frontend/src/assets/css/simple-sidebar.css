@@ -4,8 +4,13 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
+html{
+  height: 100%;
+}
+
  body {
     overflow-x: hidden;
+   height: 100%;
  }
 
 /* Toggle Styles */
@@ -47,6 +52,7 @@
     padding: 60px 15px 15px 5px;
     height: 100%;
     background-color: #F6F5F5;
+  color: black;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -95,6 +101,9 @@
 
 .sidebar-nav > .sidebar-brand a {
     color: #999999;
+}
+.sidebar-nav > .sidebar-brand a.white{
+  color: white;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {

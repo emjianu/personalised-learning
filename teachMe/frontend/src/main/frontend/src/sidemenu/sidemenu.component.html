@@ -2,18 +2,18 @@
 
 <ul class="sidebar-nav white">
 
-  <li class="sidebar-brand">
+  <li class="sidebar-brand" id="profile-bar">
 
-    <span class="username">{{user.username}}</span>
+    <img src="assets/img/chars/{{user.rank.path}}" class="img-circle profile-pic" alt="profile">  <span class="username">{{user.username}}</span>
   </li>
   <hr class="no-bottom-margin no-top-margin white">
 
-  <li>
-    <span class="larger"><strong >XP until next Level: </strong></span> <span class="font-20"><strong>{{user.xpTilLvl}}</strong></span>
+  <li class="dark-li">
+    <span class="larger">XP until next Level: </span> <span class="font-20"><strong>{{user.xpTilLvl}}</strong></span>
   </li>
 
-  <li>
-    <span class="larger">Rank: {{user.rank}}</span>
+  <li class="dark-li">
+    <span class="larger">Rank: </span><span id="rank-span">{{user.rank.name}}</span>
   </li>
 
   <hr class="no-bottom-margin no-top-margin white">

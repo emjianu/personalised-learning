@@ -1,4 +1,6 @@
-import {Rank} from "./rank";
+
+
+import {Rank} from "../rank/rank";
 /**
  * Created by E-M on 4/27/2017.
  */
@@ -16,6 +18,9 @@ export class User {
 
   xpTilLvl: number;
   sessionXp: number;
+
+
+
 
 
 }

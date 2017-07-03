@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
 
 
   isVisible: boolean;
+
   user: User;
 
   color: string;
@@ -43,28 +44,34 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.isVisible = false;
+
     console.log(this.isVisible);
 
     this.color = "#F6F5F5";
+
+   // this.color = "white";
   }
 
 
   setColor(question) {
     console.log("qq??");
 
-
-  if(question.answeredBefore && question.latestStatus){
+    if(question.id == 0){
+      this.color = "#F6F5F5";
+    } else if(question.answeredBefore && question.latestStatus){
 
       this.color = "#e5e7f3";
       console.log("qq?? before corect");
       //this.color = "#C0C4DF";
       console.log(this.color);
+
     } else if(question.answeredBefore && !question.latestStatus){
       this.color = "#FFEFEF";
       console.log("qq?? before wrong");
       //this.color = "#FFF0F0";
 
       console.log(this.color);
+
     } else if(!question.answeredBefore){
       console.log("qq?? new");
       console.log(this.color);

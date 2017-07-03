@@ -49,11 +49,11 @@ colors
 }
 
 .smaller-font{
-  font-size: small;
+  font-size: 16px;
 }
 
 .larger-font{
-  font-size: large;
+  font-size: 14px;
 }
 
 .white{
@@ -70,6 +70,7 @@ colors
 
 .bolder{
   font-weight: 600;
+  font-size: 18px;
 }
 
 .correct-green{
@@ -83,6 +84,8 @@ colors
 .incorrect-red{
   color: #D05C73;
 }
+
+
 
 .incorrect-lightred{
   color: #EF8EA1;
@@ -103,4 +106,19 @@ colors
 
 .spacing{
   padding-right: 10px;
+}
+
+.dark-grey{
+  color: rgba(0, 0, 0, 0.83);
+  font-family: 'Aldrich', sans-serif;
+}
+
+
+.panel-shadow{
+  box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.29);
+}
+
+
+.glif-margin{
+  margin: 6px 0px;
 }

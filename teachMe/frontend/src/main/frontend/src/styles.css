@@ -44,6 +44,7 @@ body{
   width: inherit;
   background-color: #1f1429;
   color: white;
+  font-size: inherit;
   border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
 }
 
@@ -99,5 +100,67 @@ body{
 }
 
 span.glyphicon.glyphicon-menu-hamburger{
-  padding-top: 8px;
+  padding-top: 4px;
+}
+
+
+.violet{
+  color: #6f36c2;
+}
+
+.home-par-padding{
+  padding: 15px;
+
+}
+
+.home-par{
+  font-size: x-large;
+  color: #6f36c2;
+  font-weight: 700;
+}
+
+.lsn-title{
+  cursor: default;
+}
+
+
+.info-container{
+  padding: 10px 10px 10px 30px;
+  font-size: large;
+}
+
+.red-ross{
+  color: #e20000;
+}
+
+.blue-ross{
+  color: #0000e0;
+}
+
+.top-bottom-margin{
+  margin: 15px 0px;
+}
+
+
+#profile-bar{
+  background-color: white;
+  color: black;
+  font-size: large;
+  text-indent: 0px;
+}
+
+.profile-pic{
+  width: 21%;
+  margin: 10px 0px;
+}
+
+#rank-span{
+  font-family: 'Aldrich', sans-serif;
+  font-weight: 600;
+  font-size: larger;
+}
+
+
+li.dark-li{
+  background-color: black;
 }

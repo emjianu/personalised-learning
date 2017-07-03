@@ -152,4 +152,10 @@ export class QuestionComponent implements OnInit {
 
 
 
+  reset(){
+
+    //this.onQuestion.emit("xxxxxxx");
+    this.sharedService.emitChange(new Question());
+  }
+
 }

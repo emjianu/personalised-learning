@@ -164,4 +164,5 @@ ul.nav.navbar-nav.navbar-right li{
   display: inline;
   font-weight: 700;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  padding-right: 5px;
 }

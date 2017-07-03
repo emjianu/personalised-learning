@@ -5,6 +5,8 @@ import {Observable} from "rxjs";
 import {QuestionFeedback} from "./questionFeedback";
 import {User} from "../login/user";
 import {Stats} from "./stats";
+import {Rank} from "../rank/rank";
+import {RankService} from "../rank/rank.service";
 /**
  * Created by E-M on 4/17/2017.
  */
@@ -15,7 +17,8 @@ export class QuestionService {
 
   private questionsUrl = 'lessons';
 
-  constructor(private http: Http) {
+  constructor(private http: Http,
+  private rankService: RankService) {
   }
 
   user: User;
@@ -95,7 +98,7 @@ export class QuestionService {
     } else {
       this.addXPWrong();
     }
-    this.getXptilNext();
+    this.getXptilNext(this.user);
 
   }
 
@@ -105,6 +108,7 @@ export class QuestionService {
     this.user.xp = prevXp + 10;
   this.user.sessionXp += 10;
     this.checkLevel();
+    this.updateRank();
 
   }
 
@@ -114,6 +118,7 @@ export class QuestionService {
     this.user.xp = prevXp + 5;
     this.user.sessionXp += 5;
     this.checkLevel();
+    this.updateRank();
 
   }
 
@@ -133,13 +138,22 @@ export class QuestionService {
     }*/
   }
 
-  getXptilNext(): void {
-    var nextlvlxp = (Math.round(Math.pow((3*(this.user.level+0.5)), 2)));
-    console.log((3*(this.user.level+0.5))^2);
-    console.log(nextlvlxp);
-    console.log(this.user.xp);
-    this.user.xpTilLvl = nextlvlxp - this.user.xp;
 
+  getXptilNext(user: User): User {
+    var nextlvlxp = (Math.round(Math.pow((3*(user.level+0.5)), 2)));
+    console.log((3*(user.level+0.5))^2);
+    console.log(nextlvlxp);
+    console.log(user.xp);
+    user.xpTilLvl = nextlvlxp - user.xp;
+
+
+    return user;
+  }
+
+
+  updateRank(): void {
+
+    this.rankService.setRank(this.user);
   }
 
 

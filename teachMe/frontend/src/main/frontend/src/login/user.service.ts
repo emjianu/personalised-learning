@@ -1,6 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Http, Headers} from "@angular/http";
 import {User} from "./user";
+import {RankService} from "../rank/rank.service";
+import {QuestionService} from "../question/question.service";
 /**
  * Created by E-M on 4/27/2017.
  */
@@ -15,7 +17,9 @@ export class UserService {
   user: User;
 
 
-  constructor(private http: Http) {
+  constructor(private http: Http,
+  private rankService: RankService,
+  private questionService: QuestionService) {
   }
 
   private headers = new Headers({'Content-Type': 'application/json'});
@@ -32,8 +36,16 @@ export class UserService {
       .then(response => {
         console.log(response.json());
 
-        sessionStorage.setItem("currentUser", JSON.stringify(response.json()));
-        return response.json() as User;})
+        this.user = response.json() as User;
+
+        this.user = this.rankService.setRank(this.user);
+        this.user = this.questionService.getXptilNext(this.user);
+
+        console.log(this.user.rank);
+
+        sessionStorage.setItem("currentUser", JSON.stringify(this.user));
+        //sessionStorage.setItem("currentUser", JSON.stringify(response.json()));
+        return this.user;})
       .catch(this.handleError);
   }
 
@@ -65,9 +77,12 @@ export class UserService {
         console.log(response.json());
 
         this.user = response.json() as User;
+        this.user = this.rankService.setRank(this.user);
+
+        this.user = this.questionService.getXptilNext(this.user);
 
         if(this.user.id != 0){
-          sessionStorage.setItem("currentUser", JSON.stringify(response.json()));
+          sessionStorage.setItem("currentUser", JSON.stringify(this.user));
         }
 
         return response.json() as User;})

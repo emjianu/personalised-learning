@@ -1,4 +1,5 @@
-<div class="row">
+<div class="row col-md-3 col-lg-3">
+
 
   <div *ngFor="let lesson of lessons">
 
@@ -8,9 +9,14 @@
           &lt;!&ndash;   <span class="glyphicon glyphicon-search"></span>&ndash;&gt;
 
         </i>-->
-        <div class="title"><h3><a [routerLink]="['/lessons', lesson.id]">{{lesson.title}}</a></h3></div>
+        <div class="title"><h3><a (click)="handleClick(lesson.id)" class="lsn-title">{{lesson.title}}</a></h3></div>
 
         <div class="clear"></div>
+
+        <div class="lsn-options col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-8 col-sm-offset-2 col-xs-12" [hidden]="!clicked || targetId != lesson.id" >
+          <a [routerLink]="['/lessons',lesson.id, 'test']" class="btn btn-inverse top-bottom-margin" >Train</a>
+          <a [routerLink]="['/lessons', lesson.id]" class="btn btn-primary top-bottom-margin" >Read Lesson</a>
+        </div>
       </div>
     </div>
 
@@ -20,9 +26,10 @@
                  &lt;!&ndash;   <span class="glyphicon glyphicon-search"></span>&ndash;&gt;
 
                </i>-->
-        <div class="title"><h3 ><a [routerLink]="['/home']" class="light-grey">{{lesson.title}}</a></h3></div>
+        <div class="title"><h3 ><a class="light-grey lsn-title">{{lesson.title}}</a></h3></div>
 
         <div class="clear"></div>
+
       </div>
     </div>
 
@@ -32,5 +39,15 @@
   </div>
 
 </div>
+
+<div class="row col-md-8 col-lg-8 hidden-sm hidden-xs info-container text-center">
+  <h2>You can <span class="violet">read</span> or <span class="violet">train</span> on a specific subject by selecting a lesson</h2>
+  <p class="home-par-padding home-par">Made a mistake while training? </p>
+  <p class="larger"><span class="home-par">Don't worry! We got you covered.</span> A question you got wrong will reappear in a <span class="red-ross">simpler form</span> and a question you answered correctly might reappear in a <span class="blue-ross">more difficult form</span> to keep you on the edge.</p>
+
+
+</div>
+
+
 
 

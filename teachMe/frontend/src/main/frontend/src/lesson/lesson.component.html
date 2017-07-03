@@ -3,20 +3,21 @@
 
 <div *ngIf="lesson">
 
-  <div class="padding-md-bottom">
-    <a [routerLink]="['/lessons',lesson.id, 'test']" class="btn btn-inverse" role="button">Train</a>
+<!--  <div class="padding-md-bottom">
+    <a [routerLink]="['/lessons',lesson.id, 'test']" class="btn btn-inverse col-lg-3 col-md-3 col-sm-3" role="button">Train</a>
 
   </div>
 
-  <span class="lesson-number title-padding">Or read about...</span>
+  <span class="lesson-number title-padding">Or read about...</span>-->
 
   <h1 class="title-padding">{{lesson.title}}</h1>
 
   <p [innerHTML]="lesson.content"></p>
 <!--<lesson-content [lesson]="lesson.content"></lesson-content>-->
 
-
-  <a [routerLink]="['/lessons',lesson.id, 'test']" class="btn btn-inverse" role="button">Train</a>
+<div class="col-lg-4  col-md-4 col-sm-12 col-xs-12">
+ <a [routerLink]="['/lessons',lesson.id, 'test']" class="btn btn-inverse" role="button">Train</a>
+</div>
 
 </div>
 

@@ -4,6 +4,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LessonService} from "../lesson/lesson.service";
 import {Lesson} from "../lesson/lesson";
+import {RankService} from "../rank/rank.service";
 
 
 
@@ -19,15 +20,22 @@ export class HomeComponent implements OnInit {
   lessons: Lesson[];
   errorMessage: string;
   isVisible: boolean;
+  clicked: boolean;
 
-  constructor(private lessonService: LessonService) {
+  targetId: string;
+
+  constructor(private lessonService: LessonService,
+              private rankService: RankService) {
   }
+
 
 
   ngOnInit() {
     this.getLessons();
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
     this.isVisible = false;
+    this.clicked = false;
   }
 
   getLessons() {
@@ -36,6 +44,11 @@ export class HomeComponent implements OnInit {
         lessons => this.lessons = lessons,
         error => this.errorMessage = <any>error);
     console.log(this.lessons)
+  }
+
+  handleClick(id: string) {
+   this.clicked = !this.clicked;
+   this.targetId = id;
   }
 
 
